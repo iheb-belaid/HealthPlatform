@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Docteur{% endblock %}
+
+
+{% block body %}
+    <h1>Inscription Docteur</h1>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.firstName, {
+            'label': 'Prénom',
+            'attr': {'placeholder': 'Entrez votre prénom'}
+        }) }}
+
+        {{ form_row(form.lastName, {
+            'label': 'Nom',
+            'attr': {'placeholder': 'Entrez votre nom'}
+        }) }}
+
+        {{ form_row(form.city, {
+            'label': 'Ville',
+            'attr': {'placeholder': 'Entrez votre ville'}
+        }) }}
+
+        {{ form_row(form.specialty, {
+            'label': 'Spécialité',
+            'attr': {'placeholder': 'Votre spécialité'}
+        }) }}
+
+        {{ form_row(form.email, {
+            'label': 'Adresse email',
+            'attr': {'placeholder': 'Entrez votre email'}
+        }) }}
+
+        {{ form_row(form.password, {
+            'label': 'Mot de passe',
+            'attr': {'placeholder': 'Choisissez un mot de passe'}
+        }) }}
+
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+
+    {{ form_end(form) }}
+
+{% endblock %}

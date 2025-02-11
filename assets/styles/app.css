@@ -1,0 +1,119 @@
+/* === Style général de la page === */
+body {
+    background-color: #f7c6d8; /* Rose pâle */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Fond couvrant toute la hauteur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* === Conteneur du formulaire === */
+.form-container {
+    background-color: #fff; /* Fond blanc */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus visible */
+    text-align: center;
+    border: 4px solid #d63384; /* Bordure rose foncé */
+}
+
+/* === Titre du formulaire === */
+h1 {
+    font-size: 1.8rem;
+    color: #d63384; /* Rose foncé */
+    margin-bottom: 20px;
+}
+
+/* === Champs du formulaire === */
+.form-control {
+    border-radius: 8px;
+    border: 2px solid #d63384; /* Bordure rose foncé */
+    padding: 12px;
+    width: 100%;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+}
+
+/* === Bouton de soumission === */
+.btn-primary {
+    background-color: #d63384; /* Rose foncé */
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #b0256a; /* Rose encore plus foncé */
+}
+
+/* === Liens d'inscription === */
+.btn-link {
+    color: #d63384;
+    text-decoration: none;
+    font-weight: 600;
+    display: block;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+    color: #b0256a;
+}
+
+/* === Alerte d'erreur === */
+.alert-danger {
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 12px;
+    background-color: #f8d7da;
+    color: #721c24;
+    margin-bottom: 15px;
+    border-left: 5px solid #d63384;
+}
+
+/* === Style pour le centrage de la page === */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* === Style des cartes (comme login, inscription) === */
+.card {
+    width: 100%;
+    max-width: 450px;
+    padding: 60px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border: 4px solid #d63384;
+}
+
+/* === Ajustements pour les champs du formulaire et les boutons === */
+input, button {
+    width: 100%;
+}
+
+/* === Espacement entre les liens === */
+.mt-4 {
+    margin-top: 20px;
+}

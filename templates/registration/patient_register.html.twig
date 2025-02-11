@@ -1,0 +1,18 @@
+
+{% block title %}Inscription Patient
+{% endblock %}
+
+{% block body %}
+    <h1>Inscription Patient</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.prename) }}
+        {{ form_row(form.numPhone) }}
+        {{ form_row(form.sexe) }}
+        {{ form_row(form.dateDeNaissance) }}
+        {{ form_row(form.adresse) }}
+        <button type="submit">S'inscrire</button>
+    {{ form_end(form) }}
+{% endblock %}

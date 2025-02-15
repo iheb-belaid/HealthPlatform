@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DocteurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,30 +15,37 @@ class Docteur extends User
     {
         parent::__construct();
         $this->setRoles(['ROLE_DOCTEUR']);
+        $this->suivisMedicaux = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
-    private ?string $firstName = null;  // Renommé en firstName (pour respecter la convention)
+    private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $lastName = null;  // Renommé en lastName (pour respecter la convention)
+    private ?string $lastName = null;
 
     #[ORM\Column]
-    private ?int $phoneNumber = null;  // Renommé en phoneNumber (pour plus de clarté)
+    private ?int $phoneNumber = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $gender = null;  // Renommé en gender
+    private ?string $gender = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $specialty = null;  // Renommé en specialty (respecter la convention)
+    private ?string $specialty = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $birthDate = null;  // Renommé en birthDate
+    private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $city = null;  // Ajout d'une propriété 'city' pour la ville
+    private ?string $city = null;
 
-    // Getter et setter pour 'firstName'
+    /**
+     * @var Collection<int, SuiviMedical>
+     */
+    #[ORM\OneToMany(targetEntity: SuiviMedical::class, mappedBy: 'docteur')]
+    private Collection $suivisMedicaux;
+
+    // Getters et Setters
     public function getFirstName(): ?string
     {
         return $this->firstName;
@@ -48,7 +57,6 @@ class Docteur extends User
         return $this;
     }
 
-    // Getter et setter pour 'lastName'
     public function getLastName(): ?string
     {
         return $this->lastName;
@@ -60,7 +68,6 @@ class Docteur extends User
         return $this;
     }
 
-    // Getter et setter pour 'phoneNumber'
     public function getPhoneNumber(): ?int
     {
         return $this->phoneNumber;
@@ -72,7 +79,6 @@ class Docteur extends User
         return $this;
     }
 
-    // Getter et setter pour 'gender'
     public function getGender(): ?string
     {
         return $this->gender;
@@ -84,7 +90,6 @@ class Docteur extends User
         return $this;
     }
 
-    // Getter et setter pour 'specialty'
     public function getSpecialty(): ?string
     {
         return $this->specialty;
@@ -96,7 +101,6 @@ class Docteur extends User
         return $this;
     }
 
-    // Getter et setter pour 'birthDate'
     public function getBirthDate(): ?\DateTimeInterface
     {
         return $this->birthDate;
@@ -108,7 +112,6 @@ class Docteur extends User
         return $this;
     }
 
-    // Getter et setter pour 'city'
     public function getCity(): ?string
     {
         return $this->city;
@@ -117,6 +120,33 @@ class Docteur extends User
     public function setCity(string $city): static
     {
         $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SuiviMedical>
+     */
+    public function getSuivisMedicaux(): Collection
+    {
+        return $this->suivisMedicaux;
+    }
+
+    public function addSuiviMedical(SuiviMedical $suiviMedical): static
+    {
+        if (!$this->suivisMedicaux->contains($suiviMedical)) {
+            $this->suivisMedicaux->add($suiviMedical);
+            $suiviMedical->setDocteur($this);
+        }
+        return $this;
+    }
+
+    public function removeSuiviMedical(SuiviMedical $suiviMedical): static
+    {
+        if ($this->suivisMedicaux->removeElement($suiviMedical)) {
+            if ($suiviMedical->getDocteur() === $this) {
+                $suiviMedical->setDocteur(null);
+            }
+        }
         return $this;
     }
 }

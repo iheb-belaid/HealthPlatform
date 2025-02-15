@@ -4,17 +4,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Docteur;
 use App\Entity\Patient;
-use App\Entity\Admin;
-use App\Form\DocteurRegistrationFormType;
-use App\Form\PatientRegistrationFormType;
+use App\Form\PatientType;
 use App\Form\AdminRegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\DocteurRegistrationFormType;
+use App\Form\PatientRegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -59,7 +60,7 @@ class RegistrationController extends AbstractController
     public function registerPatient(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new Patient();
-        $form = $this->createForm(PatientRegistrationFormType::class, $user);
+        $form = $this->createForm(PatientType::class, $user);
     
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

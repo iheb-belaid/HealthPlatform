@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chirurgie index{% endblock %}
+
+{% block body %}
+    <div class="text-center mt-4">
+        <h1>Liste Chirurgie</h1>
+    </div>
+    &nbsp; {# Espace de ligne #}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom operation</th>
+                <th>Date chirurgie</th>
+                <th>Nom etablissement</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chirurgie in chirurgies %}
+            <tr>
+                <td>{{ chirurgie.nomOperation }}</td>
+                <td>{{ chirurgie.dateChirurgie ? chirurgie.dateChirurgie|date('d/m/Y') : '' }}</td>
+                <td>{{ chirurgie.nomEtablissement }}</td>
+                <td>{{ chirurgie.notes }}</td>
+                <td>
+                    <a href="{{ path('app_chirurgie_show', {'id': chirurgie.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_chirurgie_edit', {'id': chirurgie.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    {{ include('chirurgie/_delete_form.html.twig') }} {# Bouton de suppression en ligne #}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{{ path('app_chirurgie_new') }}" class="btn btn-success btn-sm">Créer une nouvelle chirurgie</a>
+    </div>
+{% endblock %}

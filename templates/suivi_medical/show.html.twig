@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SuiviMedical{% endblock %}
+
+{% block body %}
+    <h1>Suivi Medical</h1>
+
+    <table class="table" border="2"> 
+        <tbody>
+            <tr>
+                <th>Type_suivi</th>
+                <td>{{ suivi_medical.typeSuivi }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ suivi_medical.dateDebut ? suivi_medical.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ suivi_medical.dateFin ? suivi_medical.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Frequence</th>
+                <td>{{ suivi_medical.frequence }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ suivi_medical.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_suivi_medical_index') }}" class="btn btn-info btn-sm"> Retour à la liste</a>
+
+    <a href="{{ path('app_suivi_medical_edit', {'id': suivi_medical.id}) }}" class="btn btn-info btn-sm">edit</a>
+
+    {{ include('suivi_medical/_delete_form.html.twig') }}
+{% endblock %}

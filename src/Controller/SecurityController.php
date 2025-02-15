@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
+     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // Obtenir l'erreur de connexion s'il y en a une
@@ -20,11 +20,11 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
-    }
+    } 
 
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
         // Symfony gère automatiquement la déconnexion
     }
-}
+} 

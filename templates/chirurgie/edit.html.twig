@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la chirurgie{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 rounded-4 border border-dark bg-light"> {# Cadre clair avec bordure noire #}
+                <h1 class="text-center mb-4">Modifier la chirurgie</h1>  
+
+                {{ form_start(form) }}
+                    {# Nom de l'opération #}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_label(form.nom_operation, "Nom de l'opération", {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(form.nom_operation, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.nom_operation) }} {# Afficher les erreurs de validation #}
+                        </div>
+                    </div>
+
+                    {# Date de chirurgie #}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_label(form.date_chirurgie, "Date de chirurgie", {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(form.date_chirurgie, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.date_chirurgie) }} {# Afficher les erreurs de validation #}
+                        </div>
+                    </div>
+
+                    {# Nom de l'établissement #}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_label(form.nom_etablissement, "Nom de l'établissement", {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(form.nom_etablissement, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.nom_etablissement) }} {# Afficher les erreurs de validation #}
+                        </div>
+                    </div>
+
+                    {# Notes #}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_label(form.notes, "Notes", {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(form.notes, {
+                                'attr': {
+                                    'rows': 4,
+                                    'class': 'form-control',
+                                    'style': 'resize: none;'
+                                }
+                            }) }}
+                            {{ form_errors(form.notes) }} {# Afficher les erreurs de validation #}
+                        </div>
+                    </div>
+
+                    {# Patient #}
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_label(form.patient, "Patient", {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(form.patient, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.patient) }} {# Afficher les erreurs de validation #}
+                        </div>
+                    </div>
+
+                    {# Boutons #}
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                    </div>
+                    <div class="text-center mt-4">    
+                        <a href="{{ path('app_chirurgie_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                    </div>
+                {{ form_end(form) }}
+
+                {# Formulaire de suppression #}
+                <div class="text-center mt-3">
+                    {{ include('chirurgie/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

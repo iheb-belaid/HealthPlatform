@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Docteur index{% endblock %}
+
+{% block body %}
+    <h1>Docteur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>PhoneNumber</th>
+                <th>Gender</th>
+                <th>Specialty</th>
+                <th>BirthDate</th>
+                <th>City</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for docteur in docteurs %}
+            <tr>
+                <td>{{ docteur.id }}</td>
+                <td>{{ docteur.email }}</td>
+                <td>{{ docteur.roles ? docteur.roles|json_encode : '' }}</td>
+                <td>{{ docteur.password }}</td>
+                <td>{{ docteur.firstName }}</td>
+                <td>{{ docteur.lastName }}</td>
+                <td>{{ docteur.phoneNumber }}</td>
+                <td>{{ docteur.gender }}</td>
+                <td>{{ docteur.specialty }}</td>
+                <td>{{ docteur.birthDate ? docteur.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ docteur.city }}</td>
+                <td>
+                    <a href="{{ path('app_docteur_show', {'id': docteur.id}) }}">show</a>
+                    <a href="{{ path('app_docteur_edit', {'id': docteur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_docteur_new') }}">Create new</a>
+{% endblock %}

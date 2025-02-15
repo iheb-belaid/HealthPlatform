@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PatientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +14,9 @@ class Patient extends User
     public function __construct()
     {
         parent::__construct();
-        $this->setRoles(['ROLE_PATIENT']); // Correction du rôle
+        $this->setRoles(['ROLE_PATIENT']);
+        $this->chirurgies = new ArrayCollection();
+        $this->suivisMedicaux = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
@@ -27,9 +31,22 @@ class Patient extends User
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_de_naissance = null;
 
-    #[ORM\Column(length: 255, nullable: true)] // Ajout de la colonne adresse
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;
 
+    /**
+     * @var Collection<int, Chirurgie>
+     */
+    #[ORM\OneToMany(targetEntity: Chirurgie::class, mappedBy: 'patient')]
+    private Collection $chirurgies;
+
+    /**
+     * @var Collection<int, SuiviMedical>
+     */
+    #[ORM\OneToMany(targetEntity: SuiviMedical::class, mappedBy: 'patient')]
+    private Collection $suivisMedicaux;
+
+    // Getters et Setters
     public function getPrename(): ?string
     {
         return $this->prename;
@@ -82,6 +99,60 @@ class Patient extends User
     public function setAdresse(?string $adresse): static
     {
         $this->adresse = $adresse;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Chirurgie>
+     */
+    public function getChirurgies(): Collection
+    {
+        return $this->chirurgies;
+    }
+
+    public function addChirurgie(Chirurgie $chirurgie): static
+    {
+        if (!$this->chirurgies->contains($chirurgie)) {
+            $this->chirurgies->add($chirurgie);
+            $chirurgie->setPatient($this);
+        }
+        return $this;
+    }
+
+    public function removeChirurgie(Chirurgie $chirurgie): static
+    {
+        if ($this->chirurgies->removeElement($chirurgie)) {
+            if ($chirurgie->getPatient() === $this) {
+                $chirurgie->setPatient(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SuiviMedical>
+     */
+    public function getSuivisMedicaux(): Collection
+    {
+        return $this->suivisMedicaux;
+    }
+
+    public function addSuiviMedical(SuiviMedical $suiviMedical): static
+    {
+        if (!$this->suivisMedicaux->contains($suiviMedical)) {
+            $this->suivisMedicaux->add($suiviMedical);
+            $suiviMedical->setPatient($this);
+        }
+        return $this;
+    }
+
+    public function removeSuiviMedical(SuiviMedical $suiviMedical): static
+    {
+        if ($this->suivisMedicaux->removeElement($suiviMedical)) {
+            if ($suiviMedical->getPatient() === $this) {
+                $suiviMedical->setPatient(null);
+            }
+        }
         return $this;
     }
 }

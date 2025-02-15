@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 rounded-4 border border-dark bg-light"> {# Cadre clair avec bordure noire #}
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="text-center mb-0">Ajouter une nouvelle chirurgie</h1>
+                    
+                </div>
+                <div class="d-flex justify-content-start">
+                    <span class="text-danger fw-bold">*</span> 
+                    <span class="text-dark ms-1">champs obligatoires</span>
+                </div>
+&nbsp; {# Espace de ligne #}
+
+                {{ form_start(form) }}
+                    {# Nom de l'opération #}
+                    <div class="mb-3">
+                        {{ form_label(form.nom_operation, "Nom de l'opération *", {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.nom_operation, {
+                            'attr': {
+                                'class': 'form-control mb-1',
+                            }
+                        }) }}
+                        {{ form_errors(form.nom_operation) }} {# Afficher les erreurs de validation #}
+                    </div>
+
+                    {# Date de chirurgie #}
+                    <div class="mb-3">
+                        {{ form_label(form.date_chirurgie, "Date de chirurgie *", {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.date_chirurgie, {
+                            'attr': {
+                                'class': 'form-control mb-1',
+                            }
+                        }) }}
+                        {{ form_errors(form.date_chirurgie) }} {# Afficher les erreurs de validation #}
+                    </div>
+
+                    {# Nom de l'établissement #}
+                    <div class="mb-3">
+                        {{ form_label(form.nom_etablissement, "Nom de l'établissement *", {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.nom_etablissement, {
+                            'attr': {
+                                'class': 'form-control mb-1',
+                            }
+                        }) }}
+                        {{ form_errors(form.nom_etablissement) }} {# Afficher les erreurs de validation #}
+                    </div>
+
+                    {# Notes #}
+                    <div class="mb-3">
+                        {{ form_label(form.notes, "Notes *", {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.notes, {
+                            'attr': {
+                                'rows': 3,
+                                'cols': 50,
+                                'style': 'resize: none;',
+                                'class': 'form-control mb-1',
+                            }
+                        }) }}
+                        {{ form_errors(form.notes) }} {# Afficher les erreurs de validation #}
+                    </div>
+
+                    {# Patient #}
+                    <div class="mb-3">
+                        {{ form_label(form.patient, "Patient", {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.patient, {
+                            'attr': {
+                                'class': 'form-control mb-1',
+                            }
+                        }) }}
+                        {{ form_errors(form.patient) }} {# Afficher les erreurs de validation #}
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

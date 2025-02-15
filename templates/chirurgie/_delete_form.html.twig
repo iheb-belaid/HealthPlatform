@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_chirurgie_delete', {'id': chirurgie.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette chirurgie ?');" style="display: inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chirurgie.id) }}">
+    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+</form>

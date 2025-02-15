@@ -29,7 +29,8 @@ security:
                 always_remember_me: true
             custom_authenticator: App\Security\UserAuthenticator
 
-    access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/docteur, roles: ROLE_DOCTEUR }
-        - { path: ^/patient, roles: ROLE_PATIENT }
+    # access_control:
+    #     - { path: ^/admin, roles: ROLE_ADMIN }
+    #     - { path: ^/docteur, roles: ROLE_DOCTEUR }
+    #     - { path: ^/patient, roles: ROLE_PATIENT }
+    #     - { path: ^/patient/new, roles: ROLE_ADMIN }

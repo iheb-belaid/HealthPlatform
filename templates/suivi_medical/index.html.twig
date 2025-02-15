@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SuiviMedical index{% endblock %}
+
+{% block body %}
+    <div class="text-center mt-4">
+        <h1>Liste Suivi Medical</h1>
+    </div>
+&nbsp; {#taaml  un espace de  ligne #}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type suivi</th>
+                <th>Date debut</th>
+                <th>Date fin</th>
+                <th>Frequence</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for suivi_medical in suivi_medicals %}
+            <tr>
+                <td>{{ suivi_medical.typeSuivi }}</td>
+                <td>{{ suivi_medical.dateDebut ? suivi_medical.dateDebut|date('d/m/Y') : '' }}</td>
+                <td>{{ suivi_medical.dateFin ? suivi_medical.dateFin|date('d/m/Y') : '' }}</td>
+                <td>{{ suivi_medical.frequence }}</td>
+                <td>{{ suivi_medical.description }}</td>
+                <td>
+                    <a href="{{ path('app_suivi_medical_show', {'id': suivi_medical.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_suivi_medical_edit', {'id': suivi_medical.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    {{ include('suivi_medical/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ <div class="text-center">
+    <a href="{{ path('app_suivi_medical_new') }}" class="btn btn-success">Créer un nouveau suivi</a>
+</div>
+{% endblock %}

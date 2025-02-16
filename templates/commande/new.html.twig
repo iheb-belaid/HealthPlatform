@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle commande{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        {# Titre de la page #}
+        <h1 class="text-center mb-4 display-4 font-weight-bold text-primary">
+            <i class="fas fa-cart-plus"></i> Créer une nouvelle commande
+        </h1>
+
+        {# Carte pour le formulaire #}
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="card-title mb-0">
+                    <i class="fas fa-edit"></i> Remplissez les détails de la commande
+                </h4>
+            </div>
+            <div class="card-body">
+                {# Formulaire #}
+                {{ include('commande/_form.html.twig') }}
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

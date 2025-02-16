@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4 display-4 font-weight-bold text-primary">Nos produits</h1>
+
+        {# Bouton pour créer un nouveau produit #}
+        <div class="text-center mb-4">
+            <a href="{{ path('app_produit_new') }}" class="btn btn-success btn-lg shadow">
+                <i class="fas fa-plus"></i> Ajouter un produit
+            </a>
+        </div>
+
+        {# Tableau des produits avec des animations et un design moderne #}
+        <div class="table-responsive rounded-lg shadow">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="align-middle">#</th>
+                        <th scope="col" class="align-middle">Nom</th>
+                        <th scope="col" class="align-middle">Description</th>
+                        <th scope="col" class="align-middle">Prix</th>
+                        <th scope="col" class="align-middle">Image</th>
+                        <th scope="col" class="align-middle">Date de création</th>
+                        <th scope="col" class="align-middle">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for produit in produits %}
+                    <tr class="animate__animated animate__fadeIn">
+                        <td class="align-middle">{{ produit.id }}</td>
+                        <td class="align-middle font-weight-bold">{{ produit.nom }}</td>
+                        <td class="align-middle">{{ produit.description }}</td>
+                        <td class="align-middle text-success font-weight-bold">{{ produit.prix }} €</td>
+                        <td class="align-middle">
+                            {% if produit.image %}
+                                <img src="{{ asset('uploads/images/' ~ produit.image) }}" alt="{{ produit.nom }}" class="img-fluid rounded shadow-sm" width="100">
+                            {% else %}
+                                <span class="text-muted">Pas d'image</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">{{ produit.datecreation ? produit.datecreation|date('d/m/Y H:i') : '' }}</td>
+                        <td class="align-middle">
+                            {# Bouton Voir #}
+                            <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-info btn-sm shadow">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+
+                            {# Bouton Modifier #}
+                            <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-warning btn-sm shadow">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+
+                            {# Bouton Supprimer #}
+                            <form action="{{ path('app_produit_delete', {'id': produit.id}) }}" method="post" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm shadow">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">
+                            <i class="fas fa-box-open fa-3x mb-3"></i><br>
+                            Aucun produit disponible pour le moment.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# Animation CSS avec Animate.css #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+{% endblock %}

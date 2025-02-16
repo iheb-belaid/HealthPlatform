@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau produit{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        {# Titre de la page #}
+        <h1 class="text-center mb-4 display-4 font-weight-bold text-primary">
+            <i class="fas fa-cube"></i> Créer un nouveau produit
+        </h1>
+
+        {# Carte pour le formulaire #}
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="card-title mb-0">
+                    <i class="fas fa-plus-circle"></i> Remplissez les détails du produit
+                </h4>
+            </div>
+            <div class="card-body">
+                {# Formulaire #}
+                {{ include('produit/_form.html.twig') }}
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ path('app_produit_index') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

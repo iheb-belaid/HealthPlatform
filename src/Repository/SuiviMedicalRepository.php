@@ -6,9 +6,6 @@ use App\Entity\SuiviMedical;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<SuiviMedical>
- */
 class SuiviMedicalRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,28 +13,23 @@ class SuiviMedicalRepository extends ServiceEntityRepository
         parent::__construct($registry, SuiviMedical::class);
     }
 
-    //    /**
-    //     * @return SuiviMedical[] Returns an array of SuiviMedical objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Récupérer tous les suivis médicaux avec leur patient associé, filtrés par nom du patient.
+     *
+     * @param string|null $patientName
+     * @return SuiviMedical[]
+     */
+    public function findByPatientName(?string $patientName): array
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->leftJoin('s.patient', 'p')
+            ->addSelect('p');
 
-    //    public function findOneBySomeField($value): ?SuiviMedical
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($patientName) {
+            $qb->andWhere('p.prename LIKE :patientName')
+               ->setParameter('patientName', '%' . $patientName . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

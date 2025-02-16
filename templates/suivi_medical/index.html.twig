@@ -1,46 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SuiviMedical index{% endblock %}
+{% block title %}Liste des Suivis Médicaux{% endblock %}
 
 {% block body %}
-    <div class="text-center mt-4">
-        <h1>Liste Suivi Medical</h1>
+<div class="container mt-4">
+   <h1 class="text-center" style="font-weight: bold;"><i class="fas fa-file-medical"></i>Liste des Suivis Médicaux</h1> 
+  
+  
+    <!-- Formulaire de recherche -->
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-body p-4 bg-light rounded">
+            <form method="get" action="{{ path('app_suivi_medical_index') }}" class="row g-3 align-items-center">
+                <div class="col-md-9">
+                    <input type="text" name="search" class="form-control form-control-lg" placeholder="Rechercher par nom du patient..." value="{{ search }}">
+                </div>
+                <div class="col-md-3 text-end">
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-search me-2"></i> Rechercher
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-&nbsp; {#taaml  un espace de  ligne #}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Type suivi</th>
-                <th>Date debut</th>
-                <th>Date fin</th>
-                <th>Frequence</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for suivi_medical in suivi_medicals %}
-            <tr>
-                <td>{{ suivi_medical.typeSuivi }}</td>
-                <td>{{ suivi_medical.dateDebut ? suivi_medical.dateDebut|date('d/m/Y') : '' }}</td>
-                <td>{{ suivi_medical.dateFin ? suivi_medical.dateFin|date('d/m/Y') : '' }}</td>
-                <td>{{ suivi_medical.frequence }}</td>
-                <td>{{ suivi_medical.description }}</td>
-                <td>
-                    <a href="{{ path('app_suivi_medical_show', {'id': suivi_medical.id}) }}" class="btn btn-info btn-sm">Voir</a>
-                    <a href="{{ path('app_suivi_medical_edit', {'id': suivi_medical.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
-                    {{ include('suivi_medical/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
- <div class="text-center">
-    <a href="{{ path('app_suivi_medical_new') }}" class="btn btn-success">Créer un nouveau suivi</a>
+    <!-- Bouton d'ajout d'un suivi médical -->
+    <div class="text-center mb-4">
+        <a href="{{ path('app_suivi_medical_new') }}" class="btn btn-success btn-lg">
+            <i class="fas fa-plus me-2"></i> Ajouter un Suivi Médical
+        </a>
+    </div>
+
+    <!-- Tableau des suivis médicaux -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center">Patient</th>
+                            <th class="text-center">Type de suivi</th>
+                            <th class="text-center">Date début</th>
+                            <th class="text-center">Date fin</th>
+                            <th class="text-center">Fréquence</th>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for suivi_medical in suivi_medicals %}
+                            <tr class="align-middle">
+                                <td class="text-center fw-bold">
+                                    {{ suivi_medical.patient ? suivi_medical.patient.getPrename : 'Non défini' }}
+                                </td>
+                                <td class="text-center">{{ suivi_medical.typeSuivi }}</td>
+                                <td class="text-center">{{ suivi_medical.dateDebut ? suivi_medical.dateDebut|date('d/m/Y') : '-' }}</td>
+                                <td class="text-center">{{ suivi_medical.dateFin ? suivi_medical.dateFin|date('d/m/Y') : '-' }}</td>
+                                <td class="text-center">{{ suivi_medical.frequence }}</td>
+                                <td class="text-center">{{ suivi_medical.description|slice(0, 30) ~ '...' }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ path('app_suivi_medical_show', {'id': suivi_medical.id}) }}" class="btn btn-sm btn-info" title="Voir">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ path('app_suivi_medical_edit', {'id': suivi_medical.id}) }}" class="btn btn-sm btn-warning" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('suivi_medical/_delete_form.html.twig') }}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    Aucun suivi médical trouvé.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

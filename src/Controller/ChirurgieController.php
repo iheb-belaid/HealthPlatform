@@ -14,11 +14,22 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/chirurgie')]
 final class ChirurgieController extends AbstractController
 {
-    #[Route(name: 'app_chirurgie_index', methods: ['GET'])]
-    public function index(ChirurgieRepository $chirurgieRepository): Response
+    #[Route('/', name: 'app_chirurgie_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, ChirurgieRepository $chirurgieRepository): Response
     {
+        $patientName = $request->query->get('patientName', ''); // Récupère le paramètre de recherche
+
+        if ($patientName) {
+            // Recherche les chirurgies par le nom du patient
+            $chirurgies = $chirurgieRepository->findByPatientName($patientName);
+        } else {
+            // Affiche toutes les chirurgies si aucun critère de recherche n'est fourni
+            $chirurgies = $chirurgieRepository->findAll();
+        }
+
         return $this->render('chirurgie/index.html.twig', [
-            'chirurgies' => $chirurgieRepository->findAll(),
+            'chirurgies' => $chirurgies,
+            'patientName' => $patientName, // Passe le terme de recherche au template
         ]);
     }
 

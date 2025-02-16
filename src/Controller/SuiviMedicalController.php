@@ -15,10 +15,14 @@ use Symfony\Component\Routing\Attribute\Route;
 final class SuiviMedicalController extends AbstractController
 {
     #[Route(name: 'app_suivi_medical_index', methods: ['GET'])]
-    public function index(SuiviMedicalRepository $suiviMedicalRepository): Response
+    public function index(SuiviMedicalRepository $suiviMedicalRepository, Request $request): Response
     {
+        $search = $request->query->get('search', '');
+        $suiviMedicals = $suiviMedicalRepository->findByPatientName($search);
+
         return $this->render('suivi_medical/index.html.twig', [
-            'suivi_medicals' => $suiviMedicalRepository->findAll(),
+            'suivi_medicals' => $suiviMedicals,
+            'search' => $search,
         ]);
     }
 

@@ -1,35 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chirurgie{% endblock %}
+{% block title %}Détails de la Chirurgie{% endblock %}
 
 {% block body %}
-    <h1>Chirurgie</h1>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4 text-primary fw-bold">
+            <i class="fas fa-file-medical me-2"></i>Détails de la Chirurgie
+        </h1>
 
-    <table class="table" border="2"> 
-        <tbody>
-            <tr>
-                <th>Nom_operation</th>
-                <td>{{ chirurgie.nomOperation }}</td>
-            </tr>
-            <tr>
-                <th>Date_chirurgie</th>
-                <td>{{ chirurgie.dateChirurgie ? chirurgie.dateChirurgie|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nom_etablissement</th>
-                <td>{{ chirurgie.nomEtablissement }}</td>
-            </tr>
-            <tr>
-                <th>Notes</th>
-                <td>{{ chirurgie.notes }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card shadow-lg p-4 rounded-4 border-0 bg-light">
+            <div class="card-body">
+                <table class="table table-hover table-striped mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="text-start bg-light">Nom de l'opération</th>
+                            <td class="text-start">{{ chirurgie.nomOperation }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Date de la chirurgie</th>
+                            <td class="text-start">{{ chirurgie.dateChirurgie ? chirurgie.dateChirurgie|date('d/m/Y H:i') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Nom de l'établissement</th>
+                            <td class="text-start">{{ chirurgie.nomEtablissement }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Notes</th>
+                            <td class="text-start">{{ chirurgie.notes }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <a href="{{ path('app_chirurgie_index') }}" class="btn btn-info btn-sm"> Retour à la liste</a>
-
-    <a href="{{ path('app_chirurgie_edit', {'id': chirurgie.id}) }}" class="btn btn-info btn-sm">edit</a>
-
-    {{ include('chirurgie/_delete_form.html.twig') }}
-
+        <div class="text-center mt-4">
+            <a href="{{ path('app_chirurgie_index') }}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+            </a>
+            <a href="{{ path('app_chirurgie_edit', {'id': chirurgie.id}) }}" class="btn btn-warning btn-lg me-3">
+                <i class="fas fa-edit me-2"></i>Modifier
+            </a>
+            {{ include('chirurgie/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

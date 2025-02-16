@@ -18,6 +18,12 @@ class Chirurgie1Type extends AbstractType
             ->add('date_chirurgie', null, [
                 'widget' => 'single_text',
             ])
+            ->add('nom_docteur', null, [
+                'label' => 'Nom du Docteur',
+                'attr' => [
+                    'class' => 'form-control mb-1',
+                ],
+            ])
             ->add('nom_etablissement')
             ->add('notes')
             ->add('patient', EntityType::class, [
@@ -28,6 +34,7 @@ class Chirurgie1Type extends AbstractType
                     'class' => 'form-control mb-1',
                 ],
             ])
+            
         ;
     }
 

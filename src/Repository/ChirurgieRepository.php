@@ -16,28 +16,19 @@ class ChirurgieRepository extends ServiceEntityRepository
         parent::__construct($registry, Chirurgie::class);
     }
 
-    //    /**
-    //     * @return Chirurgie[] Returns an array of Chirurgie objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Chirurgie
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * Recherche les chirurgies par le nom du patient.
+     *
+     * @param string $patientName
+     * @return Chirurgie[]
+     */
+    public function findByPatientName(string $patientName): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.patient', 'p') // Jointure avec l'entité Patient
+            ->where('p.prename LIKE :patientName') // Filtre par le prénom du patient
+            ->setParameter('patientName', '%' . $patientName . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

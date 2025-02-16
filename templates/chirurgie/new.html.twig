@@ -1,82 +1,126 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Ajouter une nouvelle chirurgie{% endblock %}
+
 {% block body %}
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="col-md-6">
-            <div class="card shadow-lg p-4 rounded-4 border border-dark bg-light"> {# Cadre clair avec bordure noire #}
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="text-center mb-0">Ajouter une nouvelle chirurgie</h1>
-                    
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+        <div class="row w-100 justify-content-center">
+            {# Colonne de gauche pour l'image #}
+            <div class="col-md-5 d-flex justify-content-center align-items-center">
+                {# Agrandir l'image en ajustant la largeur et la hauteur #}
+                <img src="{{ asset('img/surgery.jpg') }}" alt="Image médicale" class="img-fluid rounded shadow" style="max-width: 65%; height: auto;">
+            </div>
+
+            {# Colonne de droite pour le formulaire #}
+            <div class="col-md-5">
+                <div class="card shadow-lg p-4 rounded-4 border-0 bg-light"> {# Carte sans bordure et avec ombre #}
+                    <h1 class="text-center mb-4 text-primary">Ajouter une nouvelle chirurgie</h1>  
+
+                    {# Texte "* champs obligatoires" #}
+                    <div class="d-flex justify-content-start mb-4">
+                        <span class="text-danger fw-bold me-2">*</span>
+                        <span class="text-dark">champs obligatoires</span>
+                    </div>
+
+                    {{ form_start(form) }}
+                        {# Nom de l'opération et son champ sur la même ligne #}
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4">
+                                {{ form_label(form.nom_operation, "Nom de l'opération *", {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_widget(form.nom_operation, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.nom_operation) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Date de chirurgie et son champ sur des lignes séparées #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.date_chirurgie, "Date de chirurgie *", {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.date_chirurgie, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.date_chirurgie) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Nom du Docteur et son champ sur la même ligne #}
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4">
+                                {{ form_label(form.nom_docteur, "Nom du Docteur *", {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_widget(form.nom_docteur, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.nom_docteur) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Nom de l'établissement et son champ sur la même ligne #}
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4">
+                                {{ form_label(form.nom_etablissement, "Nom de l'établissement *", {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_widget(form.nom_etablissement, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.nom_etablissement) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Notes et son champ sur des lignes séparées #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.notes, "Notes *", {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.notes, {
+                                    'attr': {
+                                        'rows': 4,
+                                        'class': 'form-control form-control-lg',
+                                        'style': 'resize: none;'
+                                    }
+                                }) }}
+                                {{ form_errors(form.notes) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Patient et son champ sur la même ligne #}
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4">
+                                {{ form_label(form.patient, "Patient *", {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_widget(form.patient, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.patient) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Bouton Enregistrer #}
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Enregistrer</button>
+                        </div>
+                    {{ form_end(form) }}
                 </div>
-                <div class="d-flex justify-content-start">
-                    <span class="text-danger fw-bold">*</span> 
-                    <span class="text-dark ms-1">champs obligatoires</span>
-                </div>
-&nbsp; {# Espace de ligne #}
-
-                {{ form_start(form) }}
-                    {# Nom de l'opération #}
-                    <div class="mb-3">
-                        {{ form_label(form.nom_operation, "Nom de l'opération *", {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.nom_operation, {
-                            'attr': {
-                                'class': 'form-control mb-1',
-                            }
-                        }) }}
-                        {{ form_errors(form.nom_operation) }} {# Afficher les erreurs de validation #}
-                    </div>
-
-                    {# Date de chirurgie #}
-                    <div class="mb-3">
-                        {{ form_label(form.date_chirurgie, "Date de chirurgie *", {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.date_chirurgie, {
-                            'attr': {
-                                'class': 'form-control mb-1',
-                            }
-                        }) }}
-                        {{ form_errors(form.date_chirurgie) }} {# Afficher les erreurs de validation #}
-                    </div>
-
-                    {# Nom de l'établissement #}
-                    <div class="mb-3">
-                        {{ form_label(form.nom_etablissement, "Nom de l'établissement *", {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.nom_etablissement, {
-                            'attr': {
-                                'class': 'form-control mb-1',
-                            }
-                        }) }}
-                        {{ form_errors(form.nom_etablissement) }} {# Afficher les erreurs de validation #}
-                    </div>
-
-                    {# Notes #}
-                    <div class="mb-3">
-                        {{ form_label(form.notes, "Notes *", {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.notes, {
-                            'attr': {
-                                'rows': 3,
-                                'cols': 50,
-                                'style': 'resize: none;',
-                                'class': 'form-control mb-1',
-                            }
-                        }) }}
-                        {{ form_errors(form.notes) }} {# Afficher les erreurs de validation #}
-                    </div>
-
-                    {# Patient #}
-                    <div class="mb-3">
-                        {{ form_label(form.patient, "Patient", {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.patient, {
-                            'attr': {
-                                'class': 'form-control mb-1',
-                            }
-                        }) }}
-                        {{ form_errors(form.patient) }} {# Afficher les erreurs de validation #}
-                    </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
-                {{ form_end(form) }}
             </div>
         </div>
     </div>

@@ -1,38 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SuiviMedical{% endblock %}
+{% block title %}Détails du Suivi Médical{% endblock %}
 
 {% block body %}
-    <h1>Suivi Medical</h1>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4 text-primary fw-bold">
+            <i class="fas fa-file-medical me-2"></i>Détails du Suivi Médical
+        </h1>
 
-    <table class="table" border="2"> 
-        <tbody>
-            <tr>
-                <th>Type_suivi</th>
-                <td>{{ suivi_medical.typeSuivi }}</td>
-            </tr>
-            <tr>
-                <th>Date_debut</th>
-                <td>{{ suivi_medical.dateDebut ? suivi_medical.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date_fin</th>
-                <td>{{ suivi_medical.dateFin ? suivi_medical.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Frequence</th>
-                <td>{{ suivi_medical.frequence }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ suivi_medical.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card shadow-lg p-4 rounded-4 border-0 bg-light">
+            <div class="card-body">
+                <table class="table table-hover table-striped mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="text-start bg-light">Type de suivi</th>
+                            <td class="text-start">{{ suivi_medical.typeSuivi }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Date de début</th>
+                            <td class="text-start">{{ suivi_medical.dateDebut ? suivi_medical.dateDebut|date('d/m/Y H:i') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Date de fin</th>
+                            <td class="text-start">{{ suivi_medical.dateFin ? suivi_medical.dateFin|date('d/m/Y H:i') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Fréquence</th>
+                            <td class="text-start">{{ suivi_medical.frequence }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Description</th>
+                            <td class="text-start">{{ suivi_medical.description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <a href="{{ path('app_suivi_medical_index') }}" class="btn btn-info btn-sm"> Retour à la liste</a>
-
-    <a href="{{ path('app_suivi_medical_edit', {'id': suivi_medical.id}) }}" class="btn btn-info btn-sm">edit</a>
-
-    {{ include('suivi_medical/_delete_form.html.twig') }}
+        <div class="text-center mt-4">
+            <a href="{{ path('app_suivi_medical_index') }}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+            </a>
+            <a href="{{ path('app_suivi_medical_edit', {'id': suivi_medical.id}) }}" class="btn btn-warning btn-lg me-3">
+                <i class="fas fa-edit me-2"></i>Modifier
+            </a>
+            {{ include('suivi_medical/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

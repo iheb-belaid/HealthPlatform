@@ -45,6 +45,15 @@ class Chirurgie
     #[ORM\JoinColumn(nullable: false)]
     private ?Patient $patient = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom du docteur ne peut pas être vide.")]
+    #[Assert\Regex(
+        pattern: "/^\s*$/",
+        match: false,
+        message: "Le nom du docteur ne peut pas être uniquement composé d'espaces."
+    )]
+    private ?string $nom_docteur = null;
+
     // Getters et Setters
     public function getId(): ?int
     {
@@ -103,6 +112,17 @@ class Chirurgie
     public function setPatient(?Patient $patient): static
     {
         $this->patient = $patient;
+        return $this;
+    }
+
+    public function getNomDocteur(): ?string
+    {
+        return $this->nom_docteur;
+    }
+
+    public function setNomDocteur(string $nom_docteur): static
+    {
+        $this->nom_docteur = $nom_docteur;
         return $this;
     }
 }

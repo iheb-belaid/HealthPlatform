@@ -3,11 +3,91 @@
 {% block title %}Edit Patient{% endblock %}
 
 {% block body %}
-    <h1>Edit Patient</h1>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="text-center">Edit Patient</h1>
 
-    {{ include('patient/_form.html.twig', {'button_label': 'Update'}) }}
+            {{ include('patient/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_patient_index') }}">back to list</a>
+            <div class="text-center mt-3">
+                <a href="{{ path('app_patient_index') }}" class="btn btn-secondary">Back to list</a>
+            </div>
 
-    {{ include('patient/_delete_form.html.twig') }}
+            <div class="text-center mt-3">
+                {{ include('patient/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+    </style>
+{% endblock %}{% extends 'base.html.twig' %}
+
+{% block title %}Edit Patient{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="form-container">
+            <h1 class="text-center">Edit Patient</h1>
+
+            {{ include('patient/_form.html.twig', {'button_label': 'Update'}) }}
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_patient_index') }}" class="btn btn-secondary">Back to list</a>
+            </div>
+
+            <div class="text-center mt-3">
+                {{ include('patient/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+    </style>
 {% endblock %}

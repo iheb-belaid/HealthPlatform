@@ -1,0 +1,40 @@
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {# Champ Nom #}
+    <div class="mb-3">
+        {{ form_label(form.nom, 'Nom du produit', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nom du produit'}}) }}
+    </div>
+
+    {# Champ Description #}
+    <div class="mb-3">
+        {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Décrivez le produit', 'rows': 5}}) }}
+    </div>
+
+    {# Champ Prix #}
+    <div class="mb-3">
+        {{ form_label(form.prix, 'Prix (DT)', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le prix'}}) }}
+    </div>
+
+    {# Champ Image #}
+    <div class="mb-3">
+        {{ form_label(form.image, 'Image du produit', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Champ Date de création #}
+    <div class="mb-3">
+        {{ form_label(form.datecreation, 'Date de création', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.datecreation, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Bouton de soumission #}
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-lg shadow">
+            <i class="fas fa-save"></i> Enregistrer
+        </button>
+    </div>
+
+{{ form_end(form) }}

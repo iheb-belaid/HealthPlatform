@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des rendez-vous{% endblock %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <div class="hero-section" style="background: url('https://via.placeholder.com/1920x600') no-repeat center center; background-size: cover; height: 40vh;">
+        <div class="overlay" style="background: rgba(0, 0, 0, 0.5); height: 100%;">
+            <div class="container h-100 d-flex align-items-center">
+                <div class="text-white text-center">
+                    <h1 class="display-4" style="font-weight: bold;">Liste des Rendez-vous</h1>
+                    <p class="lead">Consultez tous vos rendez-vous ici.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="container py-5">
+        {{ form_start(recherche) }}
+            <div class="d-flex justify-content-center mb-4">
+                {{ form_widget(recherche, {'attr': {'class': 'form-control', 'placeholder': 'Rechercher...'}}) }}
+                <button type="submit" class="btn btn-primary ml-2">Rechercher</button>
+            </div>
+        {{ form_end(recherche) }}
+
+        <div class="card shadow-lg p-4 bg-light">
+            <table class="table table-hover text-center">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rendezvous in tabrendezvous %}
+                        <tr>
+                            <td>{{ rendezvous.date|date('Y-m-d') }}</td>
+                            <td>{{ rendezvous.heure|date('H:i') }}</td>
+                            <td>{{ rendezvous.statut }}</td>
+                            <td>
+                                <a href="{{ path('app_updateformrendezvous', {'id': rendezvous.id}) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                                <form action="{{ path('app_deleterendezvous', {'id': rendezvous.id}) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendezvous.id) }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_addformrendezvous') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-calendar-plus"></i> Créer un nouveau rendez-vous
+            </a>
+        </div>
+    </div>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        .hero-section {
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+        }
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+        .btn-primary:hover {
+            background-color: #1a5bbf;
+            border-color: #1a5bbf;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+{% endblock %}

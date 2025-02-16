@@ -1,0 +1,32 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.TypeSang) }}
+        {{ form_widget(form.TypeSang, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.Date_Donation) }}
+        {{ form_widget(form.Date_Donation, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.EmailUser) }}
+        {{ form_widget(form.EmailUser, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.Cin) }}
+        {{ form_widget(form.Cin, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group d-flex flex-column">
+        {{ form_label(form.hospital) }}
+        {{ form_widget(form.hospital, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form) }}
+
+

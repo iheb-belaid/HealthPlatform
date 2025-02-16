@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DonationArgent{% endblock %}
+
+{% block body %}
+
+ <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+    <h1>Edit DonationArgent</h1>
+
+    {{ include('donation_argent/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_donation_argent_index') }}">back to list</a>
+
+    {{ include('donation_argent/_delete_form.html.twig') }}
+{% endblock %}

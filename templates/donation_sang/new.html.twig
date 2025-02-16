@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DonationSang{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+<!-- Header Area -->
+<header class="header">
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-5 col-12">
+                    <ul class="top-link">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Doctors</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-7 col-12">
+                    <ul class="top-contact">
+                        <li><i class="fa fa-phone"></i>+880 1234 56789</li>
+                        <li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Topbar -->
+    
+                <div class="col-lg-9 col-md-9 col-12">
+                    <div class="main-menu">
+                        <nav class="navigation">
+                            <ul class="nav menu">
+                                <li class="active"><a href="{{ path('app_homepage') }}">Home</a></li>
+                                <li><a href="#">Doctors</a></li>
+                                <li><a href="#">Services</a></li>
+                            
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- End Header Area -->
+
+
+
+
+
+
+
+<!-- Donation Form Section -->
+
+
+{% block body %}
+<section class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <!-- Colonne pour l'image -->
+            <div class="col-md-6 d-none d-md-flex justify-content-center">
+                <img src="{{ asset('img/donS.jpg') }}" alt="Donation Image" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Colonne pour le formulaire -->
+            <div class="col-md-6">
+                <div class="card p-4 shadow-lg">
+                    <h1 class="text-center mb-3">Créer une donation</h1>
+
+                   <!-- Formulaire -->
+<div class="form-container">
+    {{ form_start(form) }}
+
+    {% for field in form %}
+        {% if field.vars.name != '_token' %}
+            <div class="mb-3">
+                {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+
+
+                {# Différencier les champs normaux et les listes déroulantes #}
+                {% if field.vars.block_prefixes|last == 'choice' %}
+                    {{ form_widget(field, {'attr': {'class': 'form-select'}}) }}
+                {% else %}
+                    {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                {% endif %}
+
+                {% for error in field.vars.errors %}
+                    <div class="text-danger small mt-1">{{ error.message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary w-100 mt-3">valider</button>
+    {{ form_end(form) }}
+</div>
+
+
+                    <!-- Bouton Retour -->
+                    <div class="text-center mt-3">
+                        <a href="{{ path('app_homepage') }}" class="btn btn-secondary">Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Flash (en dehors et en bas du formulaire) -->
+        <div id="flash-messages" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 w-75">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show text-center shadow-lg" role="alert">
+                    <strong>Succès :</strong> {{ message|raw }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Ajout du script Bootstrap pour les alertes -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<!-- Footer Area -->
+<footer id="footer" class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>About Us</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <ul class="social">
+                            <li><a href="#"><i class="icofont-facebook"></i></a></li>
+                            <li><a href="#"><i class="icofont-google-plus"></i></a></li>
+                            <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer f-link">
+                        <h2>Quick Links</h2>
+                        <ul>
+                            <li><a href="{{ path('app_homepage') }}"><i class="fa fa-caret-right"></i> Home</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i> About Us</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i> Services</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i> FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>Open Hours</h2>
+                        <ul class="time-sidual">
+                            <li>Monday - Friday <span>8:00 - 20:00</span></li>
+                            <li>Saturday <span>9:00 - 18:30</span></li>
+                            <li>Sunday <span>Closed</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>Newsletter</h2>
+                        <form action="{{ path('app_homepage') }}" method="POST" class="newsletter-inner">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('newsletter') }}">
+                            <input name="email" type="email" placeholder="Enter your email" required>
+                            <button type="submit" class="button">
+                                <i class="icofont-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <p>&copy; {{ "now"|date("Y") }} <a href="{{ path('app_homepage') }}">YourCompany</a>. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+<!-- End Footer Area -->
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DonationSang{% endblock %}
+
+{% block body %}
+<section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+    <h1>DonationSang</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ donation_sang.id }}</td>
+            </tr>
+            <tr>
+                <th>TypeSang</th>
+                <td>{{ donation_sang.TypeSang }}</td>
+            </tr>
+            <tr>
+                <th>Date_Donation</th>
+                <td>{{ donation_sang.DateDonation ? donation_sang.DateDonation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EmailUser</th>
+                <td>{{ donation_sang.EmailUser }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ donation_sang.Cin }}</td>
+            </tr>
+            </section>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_homepage') }}">back </a>
+
+    {{ include('donation_sang/_delete_form.html.twig') }}
+{% endblock %}

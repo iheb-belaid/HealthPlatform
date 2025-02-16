@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New donation{% endblock %}
+
+{% block body %}
+ <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+        <h1>Create new donation</h1>
+        {{ include('donation_argent/_form.html.twig') }}
+
+        <a href="{{ path('app_homepage') }}">back</a>
+    </div>
+ </section>
+{% endblock %}
+
+
+

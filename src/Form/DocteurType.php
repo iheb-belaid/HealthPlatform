@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Docteur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -41,12 +42,23 @@ class DocteurType extends AbstractType
                     new Assert\Length(['max' => 100, 'maxMessage' => 'La ville ne peut pas dépasser 100 caractères.']),
                 ],
             ])
-            ->add('specialty', TextType::class, [
+            ->add('specialty', ChoiceType::class, [
                 'label' => 'Spécialité',
-                'attr' => ['placeholder' => 'Entrez votre spécialité', 'maxlength' => 100],
+                'choices' => [
+                    'Endocrinologie' => 'Endocrinologie',
+                    'Psychiatrie' => 'Psychiatrie',
+                    'Gastro-entérologie' => 'Gastro-entérologie',
+                    'Orthopédie' => 'Orthopédie',
+                    'Gynécologie' => 'Gynécologie',
+                    'Pédiatrie' => 'Pédiatrie',
+                    'Ophtalmologie' => 'Ophtalmologie',
+                    'Neurologie' => 'Neurologie',
+                    'Dermatologie' => 'Dermatologie',
+                    'Cardiologie' => 'Cardiologie',
+                ],
+                'placeholder' => 'Sélectionnez une spécialité',
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'La spécialité est obligatoire.']),
-                    new Assert\Length(['max' => 100, 'maxMessage' => 'La spécialité ne peut pas dépasser 100 caractères.']),
                 ],
             ])
             ->add('email', EmailType::class, [

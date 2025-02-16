@@ -1,18 +1,55 @@
 {% extends 'base.html.twig' %}
-{% block title %}Inscription Patient
-{% endblock %}
+
+{% block title %}Inscription Patient{% endblock %}
 
 {% block body %}
-    <h1>Inscription Patient</h1>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="text-center">Inscription Patient</h1>
 
-    {{ form_start(form) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password) }}
-        {{ form_row(form.prename) }}
-        {{ form_row(form.numPhone) }}
-        {{ form_row(form.sexe) }}
-        {{ form_row(form.dateDeNaissance) }}
-        {{ form_row(form.adresse) }}
-        <button type="submit">S'inscrire</button>
-    {{ form_end(form) }}
+            {{ form_start(form) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.password) }}
+                {{ form_row(form.prename) }}
+                {{ form_row(form.numPhone) }}
+                {{ form_row(form.sexe) }}
+                {{ form_row(form.dateDeNaissance) }}
+                {{ form_row(form.adresse) }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 40%;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .form-container input, .form-container button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .form-container button {
+            width: auto;
+        }
+    </style>
 {% endblock %}

@@ -26,6 +26,8 @@ class Consultation
     private ?\DateTimeInterface $heure = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le motif est obligatoire.")]
+    #[Assert\Choice(['Présentiel', 'En ligne'], message: "Le motif doit être 'Présentiel' ou 'En ligne'.")]
     private ?string $motif = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -34,8 +36,11 @@ class Consultation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $traitement = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 0)]
-    private ?string $prix = null;
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: "Le prix est obligatoire.")]
+    #[Assert\PositiveOrZero(message: "Le prix doit être un nombre positif ou zéro.")]
+    private ?int $prix = null;
+
 
     #[ORM\ManyToOne(targetEntity: Patient::class, inversedBy: 'consultations')]
     #[ORM\JoinColumn(name: 'patient_id', referencedColumnName: 'id', nullable: false)]
@@ -45,22 +50,7 @@ class Consultation
     #[ORM\JoinColumn(name: 'docteur_id', referencedColumnName: 'id', nullable: false)]
     private ?Docteur $Docteur = null;
 
-
-    #[ORM\OneToOne(targetEntity: RendezVous::class, inversedBy: 'consultation')]
-#[ORM\JoinColumn(name: 'rendezvous_id', referencedColumnName: 'id', nullable: false)]
-private ?RendezVous $rendezVous = null;
-
-public function getRendezVous(): ?RendezVous
-{
-    return $this->rendezVous;
-}
-
-public function setRendezVous(RendezVous $rendezVous): static
-{
-    $this->rendezVous = $rendezVous;
-
-    return $this;
-}
+    // Getters et Setters...
 
     public function getId(): ?int
     {
@@ -127,17 +117,17 @@ public function setRendezVous(RendezVous $rendezVous): static
         return $this;
     }
 
-    public function getPrix(): ?string
+    public function getPrix(): ?int
     {
         return $this->prix;
     }
 
-    public function setPrix(string $prix): static
+    public function setPrix(int $prix): self
     {
         $this->prix = $prix;
-
         return $this;
     }
+
 
     public function getPatient(): ?Patient
     {

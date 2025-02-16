@@ -79,7 +79,7 @@
 {% block body %}
     <div class="container py-5">
         <h1 class="text-center">
-            <i class="fas fa-stethoscope"></i> Ajouter/Modifier une consultation
+            <i class="fas fa-stethoscope"></i> Ajouter une consultation
         </h1>
         <div class="card p-4 bg-light">
             {{ form_start(form) }}
@@ -117,7 +117,7 @@
                     <label for="motif" class="form-label">
                         <i class="fas fa-pencil-alt"></i> Motif :
                     </label>
-                    {{ form_widget(form.motif, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le motif'}}) }}
+                    {{ form_widget(form.motif, {'attr': {'class': 'form-control'}}) }}
                     <div class="text-danger">
                         {{ form_errors(form.motif) }}
                     </div>

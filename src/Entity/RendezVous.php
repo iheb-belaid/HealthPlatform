@@ -31,25 +31,9 @@ class RendezVous
     private ?string $statut = null;
 
 
-    #[ORM\OneToOne(targetEntity: Consultation::class, mappedBy: 'rendezVous')]
-private ?Consultation $consultation = null;
+    
 
-public function getConsultation(): ?Consultation
-{
-    return $this->consultation;
-}
 
-public function setConsultation(?Consultation $consultation): static
-{
-    $this->consultation = $consultation;
-
-    // Si la consultation n'est pas null, on s'assure que la relation est bidirectionnelle
-    if ($consultation !== null) {
-        $consultation->setRendezVous($this);
-    }
-
-    return $this;
-}
 
     public function getId(): ?int
     {

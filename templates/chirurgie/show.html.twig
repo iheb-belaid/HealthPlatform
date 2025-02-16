@@ -13,6 +13,10 @@
                 <table class="table table-hover table-striped mb-0">
                     <tbody>
                         <tr>
+                            <th class="text-start bg-light">Patient</th>
+                            <td class="text-start">{{ chirurgie.patient.prename }}</td>
+                        </tr>
+                        <tr>
                             <th class="text-start bg-light">Nom de l'opération</th>
                             <td class="text-start">{{ chirurgie.nomOperation }}</td>
                         </tr>
@@ -23,6 +27,10 @@
                         <tr>
                             <th class="text-start bg-light">Nom de l'établissement</th>
                             <td class="text-start">{{ chirurgie.nomEtablissement }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Nom du docteur</th>
+                            <td class="text-start">{{ chirurgie.nomDocteur }}</td>
                         </tr>
                         <tr>
                             <th class="text-start bg-light">Notes</th>

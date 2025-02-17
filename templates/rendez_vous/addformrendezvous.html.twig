@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un rendez-vous{% endblock %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <div class="hero-section" style="background: url('https://static.vecteezy.com/ti/vecteur-libre/p1/36267976-programme-la-gestion-illustration-ensemble-affaires-et-organisation-concept-personnages-planification-et-organiser-travail-taches-fabrication-calendrier-rendez-vous-et-a-faire-liste-vecteur-illustration-vectoriel.jpg') no-repeat center center; background-size: cover; height: 40vh;">
+        
+            <div class="container h-100 d-flex align-items-center">
+                <div class="text-white text-center">
+                    <p class="lead"></p>
+                </div>
+            </div>
+        
+    </div>
+
+    <!-- Form Section -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="card-title text-center mb-0">
+                            <i class="fas fa-calendar-check"></i> Formulaire de rendez-vous
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(addform, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                            
+                            <!-- Date Field -->
+                            <div class="form-group mt-3">
+                                <label for="rendezvous_date" class="form-label">
+                                    <i class="fas fa-calendar-alt"></i> Date :
+                                </label>
+                                {{ form_widget(addform.date, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'id': 'rendezvous_date',
+                                        'placeholder': 'Sélectionnez une date'
+                                    }
+                                }) }}
+                                <div class="text-danger">
+                                    {{ form_errors(addform.date) }}
+                                </div>
+                            </div>
+
+                            <!-- Heure Field -->
+                            <div class="form-group mt-3">
+                                <label for="rendezvous_heure" class="form-label">
+                                    <i class="fas fa-clock"></i> Heure :
+                                </label>
+                                {{ form_widget(addform.heure, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'id': 'rendezvous_heure',
+                                        'placeholder': 'Sélectionnez une heure'
+                                    }
+                                }) }}
+                                <div class="text-danger">
+                                    {{ form_errors(addform.heure) }}
+                                </div>
+                            </div>
+
+                            <!-- Statut Field -->
+                            <div class="form-group mt-3">
+                                <label for="statut" class="form-label">
+                                    <i class="fas fa-info-circle"></i> Statut :
+                                </label>
+                                {{ form_widget(addform.statut, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le statut'}}) }}
+                                <div class="text-danger">
+                                    {{ form_errors(addform.statut) }}
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-save"></i> Enregistrer
+                                </button>
+                            </div>
+                        {{ form_end(addform) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">vous avez une réclamation ?</h2>
+            <p class="lead mb-4">Notre équipe est à votre disposition pour vous accompagner.</p>
+            <a href="#" class="btn btn-secondary btn-lg">
+                <i ></i> Réclamation
+            </a>
+        </div>
+    </div>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        .hero-section {
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+        }
+        .card-header {
+            border-radius: 15px 15px 0 0;
+        }
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+        .btn-primary:hover {
+            background-color: #1a5bbf;
+            border-color: #1a5bbf;
+        }
+        .btn-secondary {
+            background-color:rgb(246, 7, 7);
+            border-color:rgb(246, 7, 7);
+        }
+        .btn-secondary:hover {
+            background-color:rgb(246, 7, 7);
+            border-color:rgb(246, 7, 7);
+        }
+    </style>
+
+    <!-- Validation Script -->
+    <script>
+        (function () {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+
+    <!-- Flatpickr Script -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("#rendezvous_date", {
+                dateFormat: "Y-m-d",
+                enableTime: true,
+                time_24hr: true,
+                minDate: "today",
+                locale: "fr"
+            });
+
+            flatpickr("#rendezvous_heure", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true,
+                locale: "fr"
+            });
+        });
+    </script>
+{% endblock %}

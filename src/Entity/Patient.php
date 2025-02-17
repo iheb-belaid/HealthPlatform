@@ -17,6 +17,8 @@ class Patient extends User
         $this->setRoles(['ROLE_PATIENT']);
         $this->chirurgies = new ArrayCollection();
         $this->suivisMedicaux = new ArrayCollection();
+        $this->consultations = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
@@ -45,6 +47,18 @@ class Patient extends User
      */
     #[ORM\OneToMany(targetEntity: SuiviMedical::class, mappedBy: 'patient')]
     private Collection $suivisMedicaux;
+
+    /**
+     * @var Collection<int, Consultation>
+     */
+    #[ORM\OneToMany(targetEntity: Consultation::class, mappedBy: 'patient')]
+    private Collection $consultations;
+
+    /**
+     * @var Collection<int, Reclamation>
+     */
+    #[ORM\OneToMany(targetEntity: Reclamation::class, mappedBy: 'patient', cascade: ['remove'])]
+    private Collection $reclamations;
 
     // Getters et Setters
     public function getPrename(): ?string
@@ -155,4 +169,61 @@ class Patient extends User
         }
         return $this;
     }
+
+    /**
+     * @return Collection<int, Consultation>
+     */
+    public function getConsultations(): Collection
+    {
+        return $this->consultations;
+    }
+
+    public function addConsultation(Consultation $consultation): static
+    {
+        if (!$this->consultations->contains($consultation)) {
+            $this->consultations->add($consultation);
+            $consultation->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultation(Consultation $consultation): static
+    {
+        if ($this->consultations->removeElement($consultation)) {
+            // set the owning side to null (unless already changed)
+            if ($consultation->getPatient() === $this) {
+                $consultation->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+    
+    /**
+ * @return Collection<int, Reclamation>
+ */
+public function getReclamations(): Collection
+{
+    return $this->reclamations;
+}
+
+public function addReclamation(Reclamation $reclamation): static
+{
+    if (!$this->reclamations->contains($reclamation)) {
+        $this->reclamations->add($reclamation);
+        $reclamation->setPatient($this);
+    }
+    return $this;
+}
+
+public function removeReclamation(Reclamation $reclamation): static
+{
+    if ($this->reclamations->removeElement($reclamation)) {
+        if ($reclamation->getPatient() === $this) {
+            $reclamation->setPatient(null);
+        }
+    }
+    return $this;
+}
 }

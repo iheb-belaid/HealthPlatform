@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer un rendez-vous{% endblock %}
+
+{% block body %}
+    <h1>Supprimer un rendez-vous</h1>
+
+    <p>Êtes-vous sûr de vouloir supprimer ce rendez-vous ?</p>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Date</th>
+                <td>{{ rendezvous.date|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{{ rendezvous.heure|date('H:i') }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ rendezvous.statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {# Formulaire de suppression #}
+    <form action="{{ path('app_deleterendezvous', {'id': rendezvous.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous ?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendezvous.id) }}">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+        <a href="{{ path('app_showrendezvous') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

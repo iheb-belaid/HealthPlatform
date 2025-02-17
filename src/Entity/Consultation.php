@@ -15,32 +15,25 @@ class Consultation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'date')]
-    #[Assert\NotBlank(message: "La date est obligatoire.")]
-    #[Assert\Type("\DateTimeInterface", message: "La date doit être une date valide.")]
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $date = null;
-
-    #[ORM\Column(type: 'time')]
-    #[Assert\NotBlank(message: "L'heure est obligatoire.")]
-    #[Assert\Type("\DateTimeInterface", message: "L'heure doit être une heure valide.")]
-    private ?\DateTimeInterface $heure = null;
+    
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Le motif est obligatoire.")]
     #[Assert\Choice(['Présentiel', 'En ligne'], message: "Le motif doit être 'Présentiel' ou 'En ligne'.")]
     private ?string $motif = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $diagnostic = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $traitement = null;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Assert\NotBlank(message: "Le prix est obligatoire.")]
     #[Assert\PositiveOrZero(message: "Le prix doit être un nombre positif ou zéro.")]
-    private ?int $prix = null;
-
+    private ?string $prix = null;
 
     #[ORM\ManyToOne(targetEntity: Patient::class, inversedBy: 'consultations')]
     #[ORM\JoinColumn(name: 'patient_id', referencedColumnName: 'id', nullable: false)]
@@ -49,8 +42,6 @@ class Consultation
     #[ORM\ManyToOne(targetEntity: Docteur::class, inversedBy: 'consultations')]
     #[ORM\JoinColumn(name: 'docteur_id', referencedColumnName: 'id', nullable: false)]
     private ?Docteur $Docteur = null;
-
-    // Getters et Setters...
 
     public function getId(): ?int
     {
@@ -65,18 +56,6 @@ class Consultation
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getHeure(): ?\DateTimeInterface
-    {
-        return $this->heure;
-    }
-
-    public function setHeure(\DateTimeInterface $heure): static
-    {
-        $this->heure = $heure;
 
         return $this;
     }
@@ -98,7 +77,7 @@ class Consultation
         return $this->diagnostic;
     }
 
-    public function setDiagnostic(?string $diagnostic): static
+    public function setDiagnostic(string $diagnostic): static
     {
         $this->diagnostic = $diagnostic;
 
@@ -110,46 +89,48 @@ class Consultation
         return $this->traitement;
     }
 
-    public function setTraitement(?string $traitement): static
+    public function setTraitement(string $traitement): static
     {
         $this->traitement = $traitement;
 
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?string
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(string $prix): static
     {
         $this->prix = $prix;
+
         return $this;
     }
 
-
-    public function getPatient(): ?Patient
+    public function getPatient(): ?patient
     {
         return $this->Patient;
     }
 
-    public function setPatient(?Patient $Patient): static
+    public function setPatient(?patient $patient): static
     {
-        $this->Patient = $Patient;
+        $this->Patient = $patient;
 
         return $this;
     }
 
-    public function getDocteur(): ?Docteur
+    public function getDocteur(): ?docteur
     {
         return $this->Docteur;
     }
 
-    public function setDocteur(?Docteur $Docteur): static
+    public function setDocteur(?docteur $docteur): static
     {
-        $this->Docteur = $Docteur;
+        $this->Docteur = $docteur;
 
         return $this;
     }
+
+   
 }

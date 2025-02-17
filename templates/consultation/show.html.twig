@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Consultations{% endblock %}
+{% block title %}Détails de la Consultation{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -73,45 +73,54 @@
 {% block body %}
     <div class="container py-5">
         <h1 class="text-center">
-            <i class="fas fa-file-medical"></i> Liste des Consultations
+            <i class="fas fa-file-medical"></i> Détails de la Consultation
         </h1>
-        <div class="text-center mt-4">
-            <a href="{{ path('app_addformconsultation') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Ajouter une consultation
-            </a>
-        </div>
+
         <table class="table table-bordered mt-4">
-            <thead class="thead-dark">
+            <tbody>
                 <tr>
                     <th>ID</th>
-                    <th>Patient</th>
-                    <th>Docteur</th>
-                    <th>Date</th>
-                    <th>Motif</th>
-                    <th>Actions</th>
+                    <td>{{ consultation.id }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {% for consultation in tabconsultations %}
-                    <tr>
-                        <td>{{ consultation.id }}</td>
-                        <td>{{ consultation.patient ? consultation.patient.nom : 'N/A' }}</td>
-                        <td>{{ consultation.docteur ? consultation.docteur.nom : 'N/A' }}</td>
-                        <td>{{ consultation.date|date('Y-m-d H:i') }}</td>
-                        <td>{{ consultation.motif }}</td>
-                        <td>
-                            <a href="{{ path('app_updateformconsultation', {id: consultation.id}) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Modifier
-                            </a>
-                            <form action="{{ path('app_deleteconsultation', {id: consultation.id}) }}" method="post" style="display:inline;">
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette consultation ?');">
-                                    <i class="fas fa-trash-alt"></i> Supprimer
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <th>Date</th>
+                    <td>{{ consultation.date ? consultation.date|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Motif</th>
+                    <td>{{ consultation.motif }}</td>
+                </tr>
+                <tr>
+                    <th>Diagnostic</th>
+                    <td>{{ consultation.diagnostic }}</td>
+                </tr>
+                <tr>
+                    <th>Traitement</th>
+                    <td>{{ consultation.traitement }}</td>
+                </tr>
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ consultation.prix }}</td>
+                </tr>
+                <tr>
+                    <th>Patient</th>
+                    <td>{{ consultation.patient ? consultation.patient.id : 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <th>Docteur</th>
+                    <td>{{ consultation.docteur ? consultation.docteur.id : 'N/A' }}</td>
+                </tr>
             </tbody>
         </table>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_consultation_index') }}" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+            <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            {{ include('consultation/_delete_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}

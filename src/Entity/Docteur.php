@@ -16,6 +16,7 @@ class Docteur extends User
         parent::__construct();
         $this->setRoles(['ROLE_DOCTEUR']);
         $this->suivisMedicaux = new ArrayCollection();
+        $this->consultations = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
@@ -44,6 +45,12 @@ class Docteur extends User
      */
     #[ORM\OneToMany(targetEntity: SuiviMedical::class, mappedBy: 'docteur')]
     private Collection $suivisMedicaux;
+
+    /**
+     * @var Collection<int, Consultation>
+     */
+    #[ORM\OneToMany(targetEntity: Consultation::class, mappedBy: 'docteur')]
+    private Collection $consultations;
 
     // Getters et Setters
     public function getFirstName(): ?string
@@ -147,6 +154,36 @@ class Docteur extends User
                 $suiviMedical->setDocteur(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Consultation>
+     */
+    public function getConsultations(): Collection
+    {
+        return $this->consultations;
+    }
+
+    public function addConsultation(Consultation $consultation): static
+    {
+        if (!$this->consultations->contains($consultation)) {
+            $this->consultations->add($consultation);
+            $consultation->setDocteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultation(Consultation $consultation): static
+    {
+        if ($this->consultations->removeElement($consultation)) {
+            // set the owning side to null (unless already changed)
+            if ($consultation->getDocteur() === $this) {
+                $consultation->setDocteur(null);
+            }
+        }
+
         return $this;
     }
 }

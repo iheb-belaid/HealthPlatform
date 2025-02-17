@@ -33,11 +33,9 @@ final class DonationArgentController extends AbstractController
             $entityManager->persist($donationArgent);
             $entityManager->flush();
              // Ajouter une notification pour la confirmation
-             $this->addFlash('success', '
-             <strong>Votre donation a été enregistrée avec succès !</strong> <br>
-             <a href="' . $this->generateUrl('app_donation_argent_edit', ['id' => $donationArgent->getId()]) . '" class="btn btn-warning btn-sm">Modifier</a>
-             <a href="' . $this->generateUrl('app_donation_argent_delete', ['id' => $donationArgent->getId()]) . '" class="btn btn-danger btn-sm">Supprimer</a>
-         ');
+             $this->addFlash('success', 'Donation enregistrée avec succès ! <a href="' . $this->generateUrl('app_donation_argent_show', ['id' => $donationArgent->getId()]) . '" class="alert-link">Voir ma donation</a>');
+
+         
 
             return $this->redirectToRoute('app_donation_argent_new', [], Response::HTTP_SEE_OTHER);
         }

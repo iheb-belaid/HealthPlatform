@@ -1,17 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New donation{% endblock %}
+{% block title %}Nouvelle Donation{% endblock %}
 
 {% block body %}
- <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
-        <h1>Create new donation</h1>
-        {{ include('donation_argent/_form.html.twig') }}
+<section class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container mt-4">
+    <div class="row justify-content-center align-items-center">
+        <!-- Citation à gauche -->
+        <div class="col-md-5 text-center">
+            <div class="p-4 bg-light rounded shadow-lg">
+                <h4 class="text-primary fw-bold">🙏 Faites un geste pour la vie !</h4>
+                <p class="fst-italic text-secondary mt-4">
+                    "Donner, c'est offrir une seconde chance. Chaque don fait à un hôpital est un pas vers la guérison de ceux qui en ont le plus besoin."
+                </p>
+            </div>
+        </div>
+         
+          
+        <!-- Formulaire à droite -->
+        <div class="col-md-5">
+            <div class="shadow-sm p-4 bg-light rounded">
+                <h3 class="mb-4 text-center">Ajouter une Donation</h3>
+                {{ form_start(form) }}
 
-        <a href="{{ path('app_homepage') }}">back</a>
+                <div class="mb-3">
+                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control' ~ (form.email.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
+                    <div class="invalid-feedback">{{ form_errors(form.email) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.montant, 'Montant', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.montant, {'attr': {'class': 'form-control' ~ (form.montant.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
+                    <div class="invalid-feedback">{{ form_errors(form.montant) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.methodePaiment, 'Méthode de Paiement', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.methodePaiment, {'attr': {'class': 'form-select' ~ (form.methodePaiment.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
+                    <div class="invalid-feedback">{{ form_errors(form.methodePaiment) }}</div>
+                </div>
+
+               
+
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-success">Enregistrer</button>
+                    <a href="{{ path('app_homepage') }}" class="btn btn-secondary">Retour</a>
+                </div>
+
+                {{ form_end(form) }}
+
+                <!-- Notification de succès -->
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
+                        <strong>Succès :</strong> {{ message|raw }}
+                        </div>
+                        <a href="{{ path('app_homepage') }}" class="alert-link">valider </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
- </section>
+</div>
 {% endblock %}
-
-
-

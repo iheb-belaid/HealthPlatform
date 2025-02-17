@@ -3,14 +3,13 @@
 {% block title %}DonationArgent{% endblock %}
 
 {% block body %}
+  <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
     <h1>DonationArgent</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ donation_argent.id }}</td>
-            </tr>
+           
             <tr>
                 <th>Email</th>
                 <td>{{ donation_argent.Email }}</td>
@@ -30,7 +29,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_donation_argent_index') }}">back to list</a>
+    <a href="{{ path('app_homepage') }}">valider </a>
 
     <a href="{{ path('app_donation_argent_edit', {'id': donation_argent.id}) }}">edit</a>
 

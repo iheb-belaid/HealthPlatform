@@ -29,9 +29,12 @@ class DonationSangType extends AbstractType
             'placeholder' => 'Sélectionner un groupe sanguin',
             'required' => true,
         ])
-            ->add('Date_Donation', null, [
-                'widget' => 'single_text',
-            ])
+        //->add('Date_Donation', null, [
+            //'widget' => 'single_text',
+          //  'data' => new \DateTime(), // Définit la date actuelle comme valeur par défaut
+           // 'attr' => ['class' => 'form-control', 'readonly' => true] // Empêche la modification
+      //  ])
+        
             ->add('EmailUser')
             ->add('Cin')
             ->add('hospital', EntityType::class, [ 

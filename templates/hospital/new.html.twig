@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Hospital{% endblock %}
+
+{% block body %}
+ <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+    <h1>Create new Hospital</h1>
+    {{ include('hospital/_form.html.twig') }}
+
+    <a href="{{ path('app_hospital_index') }}">back to list</a>
+{% endblock %}

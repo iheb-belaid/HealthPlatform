@@ -33,11 +33,14 @@ class DonationArgent
     )]
     private ?string $methodePaiment = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank(message: "La date est obligatoire.")]
-    #[Assert\GreaterThanOrEqual("today", message: "La date ne peut pas être dans le passé.")]
-    private ?\DateTimeInterface $date = null;
-
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $date = null;
+    
+    public function __construct()
+    {
+        $this->date = new \DateTime(); // Assigne la date actuelle lors de la création
+    }
+    
     public function getId(): ?int
     {
         return $this->id;

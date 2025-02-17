@@ -1,41 +1,46 @@
+{# templates/donation_argent/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}DonationArgent index{% endblock %}
+{% block title %}Liste des Donations{% endblock %}
 
 {% block body %}
-    <h1>DonationArgent index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Montant</th>
-                <th>Methode_paiment</th>
-                <th>Date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for donation_argent in donation_argents %}
-            <tr>
-                <td>{{ donation_argent.id }}</td>
-                <td>{{ donation_argent.Email }}</td>
-                <td>{{ donation_argent.montant }}</td>
-                <td>{{ donation_argent.MethodePaiment }}</td>
-                <td>{{ donation_argent.Date ? donation_argent.Date|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_donation_argent_show', {'id': donation_argent.id}) }}">show</a>
-                    <a href="{{ path('app_donation_argent_edit', {'id': donation_argent.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_donation_argent_new') }}">Create new</a>
+    <div class="container mt-4">
+        <h1 class="mb-4">Liste des Donations</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Montant</th>
+                    <th>Méthode de paiement</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donation in donation_argents %}
+                    <tr>
+                        <td>{{ donation.id }}</td>
+                        <td>{{ donation.email }}</td>
+                        <td>{{ donation.montant }} €</td>
+                        <td>{{ donation.methodePaiment|capitalize }}</td>
+                        <td>{{ donation.date|date('d/m/Y') }}</td>
+                        <td>
+                           <!-- <a href="{{ path('app_donation_argent_show', {'id': donation.id}) }}" class="btn btn-info btn-sm">Voir</a>-->
+                          <!--  <a href="{{ path('app_donation_argent_edit', {'id': donation.id}) }}" class="btn btn-warning btn-sm">Modifier</a>-->
+                            <form method="post" action="{{ path('app_donation_argent_delete', {'id': donation.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ donation.id) }}">
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer cette donation ?');">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">Aucune donation enregistrée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_donation_argent_new') }}" class="btn btn-primary">Ajouter une Donation</a>
+    </div>
 {% endblock %}

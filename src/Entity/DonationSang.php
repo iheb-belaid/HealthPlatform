@@ -23,8 +23,14 @@ class DonationSang
     )]
     private ?string $TypeSang = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $Date_Donation = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $Date_Donation = null;
+    
+    public function __construct()
+    {
+        $this->Date_Donation = new \DateTime(); // Assigne la date actuelle lors de la création
+    }
+    
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "L'email est obligatoire.")]

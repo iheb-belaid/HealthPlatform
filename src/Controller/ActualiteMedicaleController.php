@@ -27,4 +27,5 @@ final class ActualiteMedicaleController extends AbstractController
     }
    
  }
+ //comment
 

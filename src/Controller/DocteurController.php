@@ -78,4 +78,13 @@ final class DocteurController extends AbstractController
 
         return $this->redirectToRoute('app_docteur_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/docteur/affiche', name: 'app_docteur_affiche', methods: ['GET'])]
+public function patientIndex(DocteurRepository $docteurRepository): Response
+{
+    return $this->render('docteur/docteurclient.html.twig', [
+        'docteurs' => $docteurRepository->findAll(),
+    ]);
+}
 }

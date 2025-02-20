@@ -78,4 +78,11 @@ final class ProduitController extends AbstractController
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/produit/patient', name: 'app_produit_patient', methods: ['GET'])]
+public function patientIndex(ProduitRepository $produitRepository): Response
+{
+    return $this->render('produit/patientp.html.twig', [
+        'produits' => $produitRepository->findAll(),
+    ]);
+}
 }

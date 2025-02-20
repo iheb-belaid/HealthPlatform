@@ -86,9 +86,10 @@ class PatientType extends AbstractType
                     new Assert\Length(['max' => 255]),
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Inscription Patient',
-            ]);
+            // ->add('submit', SubmitType::class, [
+            //     'label' => 'Inscription Patient',
+            // ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

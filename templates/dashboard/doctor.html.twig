@@ -1,7 +1,61 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Dashboard Docteur{% endblock %}
 
 {% block body %}
     <h1>Bienvenue sur le Dashboard Docteur</h1>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card p-5 text-center border-dark shadow-lg" style="width: 450px; background: linear-gradient(135deg, #007bff, #6610f2); color: white; border-radius: 15px;">
+            <h2 class="mb-4">Bienvenue sur le Dashboard Docteur</h2>
+            
+            <hr class="bg-light">
+            
+            <p class="mb-4" style="font-size: 1.1rem;">Gérez vos rendez-vous et vos consultations ci-dessous.</p>
+
+            <!-- Lien vers les rendez-vous -->
+            <a href="{{ path('app_showrendezvous') }}" class="btn btn-light btn-lg mb-3 shadow-sm" style="border-radius: 8px;">📅 Mes Rendez-vous</a>
+
+            <!-- Lien vers les consultations -->
+            <a href="{{ path('app_suivi_medical_index') }}" class="btn btn-info btn-lg mb-3 shadow-sm" style="border-radius: 8px;">💊 Suivi Médical</a>
+            <a href="{{ path('app_chirurgie_index') }}" class="btn btn-danger btn-lg mb-3 shadow-sm" style="border-radius: 8px;">⚕ Chirurgie</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5 p-3" style="background-color: #343a40; color: white; position: fixed; bottom: 0; width: 100%; box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);">
+        <p>&copy; {{ "now"|date("Y") }} MonSite - Tous droits réservés</p>
+    </footer>
+
+    <style>
+        .container {
+            background: url('https://source.unsplash.com/1600x900/?doctor,medical') center/cover no-repeat;
+        }
+
+        .card {
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-lg {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Animation pour les boutons */
+        .btn:hover {
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+
+        /* Animation pour les cartes */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+    </style>
 {% endblock %}

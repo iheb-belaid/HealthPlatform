@@ -27,32 +27,7 @@
 	
 		<!-- Header Area -->
 		<header class="header" >
-			<!-- Topbar -->
-			<div class="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-5 col-12">
-							<!-- Contact -->
-							<ul class="top-link">
-								<li><a href="#">About</a></li>
-								<li><a href="#">Doctors</a></li>
-								<li><a href="#">Contact</a></li>
-								<li><a href="#">FAQ</a></li>
-							</ul>
-							<!-- End Contact -->
-						</div>
-						<div class="col-lg-6 col-md-7 col-12">
-							<!-- Top Contact -->
-							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+880 1234 56789</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
-							</ul>
-							<!-- End Top Contact -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Topbar -->
+			
 			<!-- Header Inner -->
 			<div class="header-inner">
 				<div class="container">
@@ -74,15 +49,15 @@
 									<nav class="navigation">
 										<ul class="nav menu">
 											<li class="active"><a href="#">Home <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="index.html">Home Page 1</a></li>
-												</ul>
+												
 											</li>
-											<li><a href="#">Médecins  </a></li>
+
+											<li><a href="{{ path('app_docteur_affiche') }}">Médecins </a></li>
 											<li><a href="#">Services </a></li>
-											<li><a href="#">Pages <i class="icofont-rounded-down"></i></a>
+											<li><a href="#">Faire un don  <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
-													<li><a href="404.html">404 Error</a></li>
+													<li><a href="{{ path('app_donation_argent_new') }}">donation argent</a></li>
+													<li><a href="{{ path('app_donation_sang_new') }}">Donnation sang</a></li>
 												</ul>
 											</li>
 											<li><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
@@ -90,7 +65,6 @@
 													<li><a href="blog-single.html">Blog Details</a></li>
 												</ul>
 											</li>
-											<li><a href="contact.html">Contactez-nous</a></li>
 										</ul>
 									</nav>
 								</div>
@@ -98,7 +72,7 @@
 							</div>
 							<div class="col-lg-2 col-12">
 								<div class="get-quote">
-									<a href="appointment.html" class="btn">Book Appointment</a>
+									<h2><a href="{{ path('app_login') }}"class="btn">Se connecter </a></h2>
 								</div>
 							</div>
 						</div>
@@ -121,8 +95,7 @@
 									<h1>Nous proposons des <span>services médicaux</span> en lesquels vous pouvez avoir <span>confiance!</span></h1>
 									<p>Prenez soin de votre santé en un clic ! Découvrez notre plateforme e-santé, où des professionnels qualifiés sont à votre écoute pour vous accompagner au quotidien. </p>
 									<div class="button">
-										<a href="#" class="btn">Prendre rendez-vous</a>
-										<a href="#" class="btn primary">En savoir plus</a>
+										<h2><a href="{{ path('register_patient') }}"class="btn">Prendre rendez-vous </a></h2>
 									</div>
 								</div>
 							</div>
@@ -139,8 +112,7 @@
 									<h1>Nous proposons des <span>services médicaux</span> en lesquels vous pouvez avoir <span>confiance!</span></h1>
 									<p>Prenez soin de votre santé en un clic ! Découvrez notre plateforme e-santé, où des professionnels qualifiés sont à votre écoute pour vous accompagner au quotidien. </p>
 									<div class="button">
-										<a href="#" class="btn">Prendre rendez-vous</a>
-										<a href="#" class="btn primary">En savoir plus</a>
+										<h2><a href="{{ path('register_patient') }}"class="btn">Prendre rendez-vous </a></h2>
 									</div>
 								</div>
 							</div>
@@ -157,8 +129,7 @@
 									<h1>Nous proposons des<span>services médicaux</span> en lesquels vous pouvez avoir <span>confiance!</span></h1>
 									<p>Prenez soin de votre santé en un clic ! Découvrez notre plateforme e-santé, où des professionnels qualifiés sont à votre écoute pour vous accompagner au quotidien. </p>
 									<div class="button">
-										<a href="#" class="btn">Prendre rendez-vous</a>
-										<a href="#" class="btn primary">En savoir plus</a>
+										<h2><a href="{{ path('register_patient') }}"class="btn">Prendre rendez-vous </a></h2>
 									</div>
 								</div>
 							</div>
@@ -515,6 +486,7 @@
 							<i class="icofont icofont-blood"></i>
 							<h4>Transfusion sanguine</h4>
 							<p>La transfusion sanguine est un acte médical vital qui peut sauver des vies en cas de besoin urgent. </p>	
+							{# <h4><a href="service-details.html">Chirurgie cardiaque</a></h4> #}
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -647,11 +619,11 @@
 								<img src="img/blog1.jpg" alt="#">
 							</div>
 							<div class="news-body">
-								<div class="news-content">
-									<div class="date">22 Aug, 2025</div>
-									<h2><a href="/templates/Actualité Médicale/1.html.twig">Nous avons annoncé notre nouveau produit.</a></h2>
-								</div>
-							</div>
+    					<div class="news-content">
+        					<div class="date">22 Aug, 2025</div>
+        						 <h2><a href="{{ path('actualite_medicale_1') }}">Nous avons annoncé notre nouveau produit.</a></h2>
+    						</div>
+						</div>
 						</div>
 						<!-- End Single Blog -->
 					</div>
@@ -664,7 +636,7 @@
 							<div class="news-body">
 								<div class="news-content">
 									<div class="date">15 Jul, 2025</div>
-									<h2><a href="blog-single.html">Les cinq meilleures façons de résoudre les problèmes dentaires.</a></h2>
+									<h2><a href="{{ path('actualite_medicale_2') }}">Les cinq meilleures façons de résoudre les problèmes dentaires.</a></h2>
 									{#<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p> #}
 								</div>
 							</div>
@@ -680,7 +652,7 @@
 							<div class="news-body">
 								<div class="news-content">
 									<div class="date">05 Jan, 2025</div>
-									<h2><a href="blog-single.html">Nous proposons des solutions commerciales de haute qualité.</a></h2>
+									<h2><a href="{{ path('actualite_medicale_3') }}">Nous proposons des solutions commerciales de haute qualité.</a></h2>
 								</div>
 							</div>
 						</div>
@@ -885,7 +857,6 @@
 											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
 											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Testimonials</a></li>
 											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contactez-nous</a></li>	
 										</ul>
 									</div>
 								</div>

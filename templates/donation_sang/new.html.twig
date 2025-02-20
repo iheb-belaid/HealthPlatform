@@ -22,12 +22,9 @@
                         
                         {% for field in form %}
                             {% if field.vars.name != '_token' %}
-                                <div class="mb-4">
-                                    <!-- Ajout de w-100 pour s'assurer que les labels occupent toute la largeur -->
-                                    {{ form_label(field, null, {'label_attr': {'class': 'form-label d-block w-100'}}) }}
-
+                                <div class="mb-3">
+                                    {{ form_label(field, null, {'label_attr': {'class': 'form-label d-block w-50'}}) }}
                                     {{ form_widget(field, {'attr': {'class': field.vars.block_prefixes|last == 'choice' ? 'form-select' : 'form-control'}}) }}
-
                                     {% for error in field.vars.errors %}
                                         <div class="text-danger small mt-1">{{ error.message }}</div>
                                     {% endfor %}
@@ -35,27 +32,30 @@
                             {% endif %}
                         {% endfor %}
 
-                        <div class="d-flex justify-content-center gap-2 mt-3">
-                            <button type="submit" class="btn btn-primary w-30 mt-3">Valider</button>
-                            <a href="{{ path('app_homepage') }}" class="btn btn-primary w-30 mt-3">Retour</a>
+                        <div class="d-flex justify-content-center gap-3 mt-4">
+                            <button type="submit" class="btn btn-primary w-40">Valider</button>
+                            <a href="{{ path('app_homepage') }}" class="btn btn-secondary w-40">Retour</a>
                         </div>
+                        
                         {{ form_end(form) }}
                     </div>
+
+                    <!-- Messages Flash après le formulaire -->
+                    <div id="flash-messages" class="mt-4">
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <strong>Succès :</strong> {{ message|raw }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
                 </div>
             </div>
         </div>
-
-        <!-- Messages Flash (en dehors et en bas du formulaire) -->
-        <div id="flash-messages" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 w-75">
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success alert-dismissible fade show text-center shadow-lg" role="alert">
-                    <strong>Succès :</strong> {{ message|raw }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        </div>
     </div>
 </section>
+
 
 <!-- Ajout du script Bootstrap pour les alertes -->
 {% block javascripts %}
@@ -63,11 +63,3 @@
 {% endblock %}
 
 {% endblock %}
-
-
-
-
-
-
-
-

@@ -3,5 +3,67 @@
 {% block title %}Dashboard Admin{% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur le Dashboard Admin</h1>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card p-5 text-center border-dark shadow-lg" style="width: 500px; background: linear-gradient(135deg, #007bff, #6610f2); color: white; border-radius: 15px;">
+            <h2 class="mb-4">Bienvenue sur le Dashboard Admin</h2>
+
+            <hr class="bg-light">
+
+            <p class="mb-4" style="font-size: 1.1rem;">Gérez facilement les docteurs, les patients, les rendez-vous et les consultations via les options ci-dessous.</p>
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <a href="{{ path('app_docteur_index') }}" class="btn btn-light btn-lg shadow-sm w-100">🩺 Gestion des Docteurs</a>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('app_patient_index') }}" class="btn btn-warning btn-lg shadow-sm w-100">🏥 Gestion des Patients</a>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('app_showrendezvous') }}" class="btn btn-info btn-lg shadow-sm w-100">📅 Gestion des Rendez-vous</a>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('app_consultation_index') }}" class="btn btn-success btn-lg shadow-sm w-100">🩺 Gestion des Consultations</a>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('app_produit_index') }}" class="btn btn-primary btn-lg shadow-sm w-100">🛒 Gestion des Produits</a>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('app_donation_argent_index') }}" class="btn btn-danger btn-lg shadow-sm w-100">💰 Gestion des Donations d'Argent</a>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('app_donation_sang_index') }}" class="btn btn-danger btn-lg shadow-sm w-100">🩸 Gestion des Donations de Sang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5 p-3" style="background-color: #343a40; color: white; position: fixed; bottom: 0; width: 100%; box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);">
+        <p>&copy; {{ "now"|date("Y") }} MonSite - Tous droits réservés</p>
+    </footer>
+
+    <style>
+        .container {
+            background: url('https://source.unsplash.com/1600x900/?hospital,medical') center/cover no-repeat;
+        }
+
+        .card {
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-lg {
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn-lg:hover {
+            transform: scale(1.05);
+        }
+    </style>
 {% endblock %}

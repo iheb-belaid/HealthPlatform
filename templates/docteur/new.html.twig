@@ -3,9 +3,41 @@
 {% block title %}New Docteur{% endblock %}
 
 {% block body %}
-    <h1>Create new Docteur</h1>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="text-center">Create new Docteur</h1>
 
-    {{ include('docteur/_form.html.twig') }}
+            {{ include('docteur/_form.html.twig') }}
 
-    <a href="{{ path('app_docteur_index') }}">back to list</a>
+            <div class="text-center mt-3">
+                <a href="{{ path('app_docteur_index') }}" class="btn btn-secondary">Back to list</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+    </style>
 {% endblock %}

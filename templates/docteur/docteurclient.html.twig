@@ -19,7 +19,6 @@
                             <th>Nom</th>
                             <th>Spécialité</th>
                             <th>Ville</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,14 +35,6 @@
                                 <td>{{ docteur.lastName }}</td>
                                 <td>{{ docteur.specialty }}</td>
                                 <td>{{ docteur.city }}</td>
-                                <td>
-                                         <a href="{{ path('app_docteur_show', {'id': docteur.id}) }}" class="btn btn-primary btn-sm">Show</a>
-                                        <a href="{{ path('app_docteur_edit', {'id': docteur.id}) }}" class="btn btn-primary btn-sm">Edit</a>
-                                        <form method="post" action="{{ path('app_docteur_delete', {'id': docteur.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" style="display:inline;">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ docteur.id) }}">
-                                        <button class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                </td>
                             </tr>
                         {% else %}
                             <tr>
@@ -53,11 +44,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-end">
-                    <a href="{{ path('app_docteur_new') }}" class="btn btn-success">
-                        <i class="fas fa-plus-circle"></i> Ajouter un Docteur
-                    </a>
-                </div>
+               
             </div>
         </div>
     </div>

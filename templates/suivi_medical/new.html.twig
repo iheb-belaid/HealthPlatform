@@ -34,27 +34,30 @@
                             </div>
                         </div>
 
-                        {# Date de début et son champ sur des lignes séparées #}
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                {{ form_label(form.date_debut, 'Date de début *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            </div>
-                            <div class="col-md-12">
-                                {{ form_widget(form.date_debut, {'attr': {'class': 'form-control form-control-lg'}}) }}
-                                {{ form_errors(form.date_debut) }} {# Afficher les erreurs de validation #}
-                            </div>
-                        </div>
+                       {# Date de début #}
+<div class="row mb-3">
+    <div class="col-md-12">
+        {{ form_label(form.date_debut, 'Date de début *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_widget(form.date_debut, {'attr': {'class': 'form-control form-control-lg'}}) }}
+        {{ form_errors(form.date_debut) }}
+    </div>
+</div>
 
-                        {# Date de fin et son champ sur des lignes séparées #}
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                {{ form_label(form.date_fin, 'Date de fin *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            </div>
-                            <div class="col-md-12">
-                                {{ form_widget(form.date_fin, {'attr': {'class': 'form-control form-control-lg'}}) }}
-                                {{ form_errors(form.date_fin) }} {# Afficher les erreurs de validation #}
-                            </div>
-                        </div>
+{# Date de fin #}
+<div class="row mb-3">
+    <div class="col-md-12">
+        {{ form_label(form.date_fin, 'Date de fin *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_widget(form.date_fin, {'attr': {'class': 'form-control form-control-lg'}}) }}
+        {{ form_errors(form.date_fin) }}
+    </div>
+</div>
+
+
+
 
                         {# Fréquence et son champ sur la même ligne #}
                         <div class="row mb-3 align-items-center">
@@ -67,22 +70,22 @@
                             </div>
                         </div>
 
-                        {# Description et son champ sur des lignes séparées #}
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                {{ form_label(form.description, 'Description *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            </div>
-                            <div class="col-md-12">
-                                {{ form_widget(form.description, {
-                                    'attr': {
-                                        'rows': 4,
-                                        'class': 'form-control form-control-lg',
-                                        'style': 'resize: none;'
-                                    }
-                                }) }}
-                                {{ form_errors(form.description) }} {# Afficher les erreurs de validation #}
-                            </div>
-                        </div>
+ {# Description #}
+<div class="row mb-3">
+    <div class="col-md-12">
+        {{ form_label(form.description, 'Description *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_widget(form.description, {
+            'attr': {
+                'rows': 4,
+                'class': 'form-control form-control-lg',
+                'style': 'resize: none;'
+            }
+        }) }}
+        {{ form_errors(form.description) }}
+    </div>
+</div>
 
                         {# Patient et son champ sur la même ligne #}
                         <div class="row mb-3 align-items-center">

@@ -34,13 +34,13 @@ class SuiviMedical
     private ?string $frequence = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\NotBlank(message: "La description est obligatoire.")]
     #[Assert\Length(max: 1000, maxMessage: "La description ne doit pas dépasser 1000 caractères.")]
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: Patient::class, inversedBy: "suivisMedicaux")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Patient $patient = null;
-
 
     #[ORM\ManyToOne(targetEntity: Docteur::class)]
     #[ORM\JoinColumn(nullable: false)]

@@ -39,13 +39,13 @@ class Patient extends User
     /**
      * @var Collection<int, Chirurgie>
      */
-    #[ORM\OneToMany(targetEntity: Chirurgie::class, mappedBy: 'patient')]
+    #[ORM\OneToMany(targetEntity: Chirurgie::class, mappedBy: 'patient', orphanRemoval: true)]
     private Collection $chirurgies;
 
     /**
      * @var Collection<int, SuiviMedical>
      */
-    #[ORM\OneToMany(targetEntity: SuiviMedical::class, mappedBy: 'patient')]
+    #[ORM\OneToMany(targetEntity: SuiviMedical::class, mappedBy: 'patient', orphanRemoval: true)]
     private Collection $suivisMedicaux;
 
     /**

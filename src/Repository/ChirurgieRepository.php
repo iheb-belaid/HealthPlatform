@@ -31,4 +31,20 @@ class ChirurgieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+     /**
+     * Compte le nombre de chirurgies par patient avec le prénom du patient.
+     *
+     * @return array
+     */
+    public function countByPatient(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('p.id as patient_id, p.prename as patient_prename, COUNT(c.id) as chirurgie_count')
+            ->join('c.patient', 'p')
+            ->groupBy('p.id')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

@@ -22,7 +22,7 @@
                         <span class="text-dark">champs obligatoires</span>
                     </div>
 
-                    {{ form_start(form) }}
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                         {# Nom de l'opération et son champ sur la même ligne #}
                         <div class="row mb-3 align-items-center">
                             <div class="col-md-4">

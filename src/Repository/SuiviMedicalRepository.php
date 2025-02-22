@@ -32,4 +32,21 @@ class SuiviMedicalRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * Compte le nombre de suivis médicaux par patient avec le prénom du patient.
+     *
+     * @return array
+     */
+    public function countByPatient(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->select('p.id as patient_id, p.prename as patient_prename, COUNT(s.id) as suivi_count')
+            ->join('s.patient', 'p')
+            ->groupBy('p.id')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

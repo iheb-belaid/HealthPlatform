@@ -9,93 +9,47 @@
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
-		
-         {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset ('css/bootstrap.min.css') }}">
-                <link rel="stylesheet" href="{{ asset ('css/nice-select.css') }}">
-                <link rel="stylesheet" href="{{ asset ('css/font-awesome.min.css') }}">
-                  <link rel="stylesheet" href="{{ asset ('css/icofont.css') }}"> 
-                <link rel="stylesheet" href="{{ asset ('css/slicknav.min.css') }}">
-                  <link rel="stylesheet" href="{{ asset ('css/owl-carousel.css') }}">  
-                <link rel="stylesheet" href="{{ asset ('css/datepicker.css') }}">
-                <link rel="stylesheet" href="{{ asset ('css/animate.min.css') }}">
-                <link rel="stylesheet" href="{{ asset ('css/magnific-popup.css') }}">
-                <link rel="stylesheet" href="{{ asset ('css/normalize.css') }}">
-                <link rel="stylesheet" href="{{ asset ('style.css') }}">
-                <link rel="stylesheet" href="{{ asset ('css/responsive.css') }}">
-        {% endblock %} 
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/icofont.css') }}"> 
+            <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/owl-carousel.css') }}">  
+            <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+            <link rel="stylesheet" href="{{ asset('style.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+        {% endblock %}
 
-
-    
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body>
         {% block body %}{% endblock %}
 
-       <script src="{{ asset ('js/jquery.min.js') }}"></script>
-
-<!-- jQuery Migrate JS -->
-<script src="{{ asset ('js/jquery-migrate-3.0.0.js') }}"></script>
-
-<!-- jQuery UI JS -->
-<script src="{{ asset ('js/jquery-ui.min.js') }}"></script>
-
-<!-- Easing JS -->
-<script src="{{ asset ('js/easing.js') }}"></script>
-
-<!-- Color JS -->
-<script src="{{ asset ('js/colors.js') }}"></script>
-
-<!-- Popper JS -->
-<script src="{{ asset ('js/popper.min.js') }}"></script>
-
-<!-- Bootstrap Datepicker JS -->
-<script src="{{ asset ('js/bootstrap-datepicker.js') }}"></script>
-
-<!-- jQuery Nav JS -->
-<script src="{{ asset ('js/jquery.nav.js') }}"></script>
-
-<!-- Slicknav JS -->
-<script src="{{ asset ('js/slicknav.min.js') }}"></script>
-
-<!-- ScrollUp JS -->
-<script src="{{ asset ('js/jquery.scrollUp.min.js') }}"></script>
-
-<!-- Niceselect JS -->
-<script src="{{ asset ('js/niceselect.js') }}"></script>
-
-<!-- Tilt jQuery JS -->
-<script src="{{ asset ('js/tilt.jquery.min.js') }}"></script>
-
-<!-- Owl Carousel JS -->
-<script src="{{ asset ('js/owl-carousel.js') }}"></script>
-
-<!-- Counterup JS -->
-<script src="{{ asset ('js/jquery.counterup.min.js') }}"></script>
-
-<!-- Steller JS -->
-<script src="{{ asset ('js/steller.js') }}"></script>
-
-<!-- Wow JS -->
-<script src="{{ asset ('js/wow.min.js') }}"></script>
-
-<!-- Magnific Popup JS -->
-<script src="{{ asset ('js/jquery.magnific-popup.min.js') }}"></script>
-
-<!-- Counter Up CDN JS (external) -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="{{ asset ('js/bootstrap.min.js') }}"></script>
-
-<!-- Main JS -->
-<script src="{{ asset ('js/main.js') }}"></script>
-
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-migrate-3.0.0.js') }}"></script>
+            <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('js/easing.js') }}"></script>
+            <script src="{{ asset('js/colors.js') }}"></script>
+            <script src="{{ asset('js/popper.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+            <script src="{{ asset('js/jquery.nav.js') }}"></script>
+            <script src="{{ asset('js/slicknav.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+            <script src="{{ asset('js/niceselect.js') }}"></script>
+            <script src="{{ asset('js/tilt.jquery.min.js') }}"></script>
+            <script src="{{ asset('js/owl-carousel.js') }}"></script>
+            <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+            <script src="{{ asset('js/steller.js') }}"></script>
+            <script src="{{ asset('js/wow.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
-
-
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-

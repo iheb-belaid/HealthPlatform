@@ -51,7 +51,7 @@ class Chirurgie1Type extends AbstractType
                 'class' => Patient::class,
                 'choice_label' => 'prename', 
                 'label' => 'Patient',
-                'required' => false, // Désactive la validation HTML5
+                // 'required' => false, // Désactive la validation HTML5
                 'attr' => [
                     'class' => 'form-control mb-1',
                 ],

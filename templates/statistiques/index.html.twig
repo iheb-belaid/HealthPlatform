@@ -1,0 +1,141 @@
+{# templates/statistiques/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques Médicales{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Style pour le bouton "Afficher le graphe " */
+        #scrollToBottomBtn {
+            position: fixed; /* Fixe le bouton à l'écran */
+            top: 20px; /* Position verticale */
+            right: 20px; /* Position horizontale */
+            z-index: 1000; /* Assure que le bouton est au-dessus des autres éléments */
+            padding: 10px 20px; /* Espacement interne */
+            background-color: #007bff; /* Couleur de fond */
+            color: white; /* Couleur du texte */
+            border: none; /* Pas de bordure */
+            border-radius: 5px; /* Coins arrondis */
+            cursor: pointer; /* Curseur en forme de main */
+        }
+
+        #scrollToBottomBtn:hover {
+            background-color: #0056b3; /* Changement de couleur au survol */
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Configuration du graphique
+            const ctx = document.getElementById('statistiquesChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ statistiques|keys|json_encode|raw }}, // IDs des patients
+                    datasets: [
+                        {
+                            label: 'Suivis Médicaux',
+                            data: {{ statistiques|map(stats => stats.suivi_count)|json_encode|raw }}, // Nombre de suivis
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Chirurgies',
+                            data: {{ statistiques|map(stats => stats.chirurgie_count)|json_encode|raw }}, // Nombre de chirurgies
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'ID du Patient' // Libellé de l'axe des abscisses
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Nombre' // Libellé de l'axe des ordonnées
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1 // Pas de 1 pour l'axe Y
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gestion du bouton "Afficher le graphe "
+            const scrollToBottomBtn = document.getElementById('scrollToBottomBtn');
+            if (scrollToBottomBtn) {
+                scrollToBottomBtn.addEventListener('click', function () {
+                    window.scrollTo({
+                        top: document.body.scrollHeight, // Défile jusqu'en bas de la page
+                        behavior: 'smooth' // Animation fluide
+                    });
+                });
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        {# Bouton "Afficher le graphe " #}
+        <button id="scrollToBottomBtn">Afficher le graphe </button>
+
+        <h1 class="text-center mb-4">Statistiques Médicales par Patient</h1>
+
+        {# Tableau des statistiques #}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID Patient</th>
+                        <th>Nom du Patient</th>
+                        <th>Nombre de Suivis Médicaux</th>
+                        <th>Nombre de Chirurgies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient_id, stats in statistiques %}
+                        <tr>
+                            <td>{{ patient_id }}</td>
+                            <td>{{ stats.patient_prename }}</td>
+                            <td>{{ stats.suivi_count }}</td>
+                            <td>{{ stats.chirurgie_count }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Aucune donnée disponible.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {# Graphique #}
+        <div class="mt-5">
+            <canvas id="statistiquesChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+{% endblock %}

@@ -24,7 +24,7 @@ class Chirurgie
     )]
     private ?string $nom_operation = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)] // Autorise null
     #[Assert\NotBlank(message: "La date de la chirurgie ne peut pas être vide.")]
     private ?\DateTimeInterface $date_chirurgie = null;
 

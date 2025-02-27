@@ -1,3 +1,4 @@
+{# templates/chirurgie/new.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Ajouter une nouvelle chirurgie{% endblock %}
@@ -115,9 +116,24 @@
                             </div>
                         </div>
 
-                        {# Bouton Enregistrer #}
+                        {# Rapport de chirurgie (PDF) #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.rapportChirurgieFile, 'Rapport de chirurgie (PDF)', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.rapportChirurgieFile, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.rapportChirurgieFile) }} {# Afficher les erreurs de validation #}
+                            </div>
+                        </div>
+
+                        {# Bouton Enregistrer (déplacé après le champ rapportChirurgieFile) #}
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg w-100">Enregistrer</button>
+                            {{ form_widget(form.save) }}
                         </div>
                     {{ form_end(form) }}
                 </div>

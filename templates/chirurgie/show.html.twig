@@ -1,3 +1,4 @@
+{# templates/chirurgie/show.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Détails de la Chirurgie{% endblock %}
@@ -35,6 +36,29 @@
                         <tr>
                             <th class="text-start bg-light">Notes</th>
                             <td class="text-start">{{ chirurgie.notes }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Rapport de chirurgie</th>
+                            <td class="text-start">
+                                {% if chirurgie.rapportChirurgieName %}
+                                    {% if chirurgie.rapportChirurgieName ends with '.pdf' %}
+                                        <a href="{{ asset('uploads/chirurgie_files/' ~ chirurgie.rapportChirurgieName) }}" download>
+                                            Télécharger le rapport (PDF)
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ asset('uploads/chirurgie_files/' ~ chirurgie.rapportChirurgieName) }}" 
+                                           data-lightbox="rapport-chirurgie" 
+                                           data-title="Rapport de chirurgie">
+                                            <img src="{{ asset('uploads/chirurgie_files/' ~ chirurgie.rapportChirurgieName) }}" 
+                                                 alt="Rapport de chirurgie" 
+                                                 class="img-fluid" 
+                                                 style="max-width: 300px; height: auto;">
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    Aucun fichier téléchargé.
+                                {% endif %}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

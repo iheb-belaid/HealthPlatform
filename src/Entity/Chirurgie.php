@@ -1,13 +1,15 @@
-<?php
-
+<?php // src/Entity/Chirurgie.php
 namespace App\Entity;
 
-use App\Repository\ChirurgieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ChirurgieRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ChirurgieRepository::class)]
+#[Vich\Uploadable]
 class Chirurgie
 {
     #[ORM\Id]
@@ -24,7 +26,7 @@ class Chirurgie
     )]
     private ?string $nom_operation = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)] // Autorise null
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\NotBlank(message: "La date de la chirurgie ne peut pas être vide.")]
     private ?\DateTimeInterface $date_chirurgie = null;
 
@@ -54,7 +56,12 @@ class Chirurgie
     )]
     private ?string $nom_docteur = null;
 
-    // Getters et Setters
+    #[Vich\UploadableField(mapping: "chirurgie_files", fileNameProperty: "rapportChirurgieName")]
+    private ?File $rapportChirurgieFile = null;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $rapportChirurgieName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,5 +131,25 @@ class Chirurgie
     {
         $this->nom_docteur = $nom_docteur;
         return $this;
+    }
+
+    public function setRapportChirurgieFile(?File $rapportChirurgieFile = null): void
+    {
+        $this->rapportChirurgieFile = $rapportChirurgieFile;
+    }
+
+    public function getRapportChirurgieFile(): ?File
+    {
+        return $this->rapportChirurgieFile;
+    }
+
+    public function setRapportChirurgieName(?string $rapportChirurgieName): void
+    {
+        $this->rapportChirurgieName = $rapportChirurgieName;
+    }
+
+    public function getRapportChirurgieName(): ?string
+    {
+        return $this->rapportChirurgieName;
     }
 }

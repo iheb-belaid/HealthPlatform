@@ -1,12 +1,14 @@
-<?php
-
+<?php // src/Entity/SuiviMedical.php
 namespace App\Entity;
 
 use App\Repository\SuiviMedicalRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: SuiviMedicalRepository::class)]
+#[Vich\Uploadable]
 class SuiviMedical
 {
     #[ORM\Id]
@@ -45,6 +47,12 @@ class SuiviMedical
     #[ORM\ManyToOne(targetEntity: Docteur::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Docteur $docteur = null;
+
+    #[Vich\UploadableField(mapping: "suivi_medical_files", fileNameProperty: "rapportMedicalName")]
+    private ?File $rapportMedicalFile = null;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $rapportMedicalName = null;
 
     public function getId(): ?int
     {
@@ -126,5 +134,25 @@ class SuiviMedical
     {
         $this->docteur = $docteur;
         return $this;
+    }
+
+    public function setRapportMedicalFile(?File $rapportMedicalFile = null): void
+    {
+        $this->rapportMedicalFile = $rapportMedicalFile;
+    }
+
+    public function getRapportMedicalFile(): ?File
+    {
+        return $this->rapportMedicalFile;
+    }
+
+    public function setRapportMedicalName(?string $rapportMedicalName): void
+    {
+        $this->rapportMedicalName = $rapportMedicalName;
+    }
+
+    public function getRapportMedicalName(): ?string
+    {
+        return $this->rapportMedicalName;
     }
 }

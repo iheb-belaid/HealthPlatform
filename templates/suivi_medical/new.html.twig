@@ -1,3 +1,4 @@
+{# templates/suivi_medical/new.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Nouveau Suivi Médical{% endblock %}
@@ -7,13 +8,12 @@
         <div class="row w-100 justify-content-center">
             {# Colonne de gauche pour l'image #}
             <div class="col-md-5 d-flex justify-content-center align-items-center">
-                {# Agrandir l'image en ajustant la largeur et la hauteur #}
                 <img src="{{ asset('img/suivi-femme.jpg') }}" alt="Image médicale" class="img-fluid rounded shadow" style="max-width: 120%; height: 85%;">
             </div>
 
             {# Colonne de droite pour le formulaire #}
             <div class="col-md-5">
-                <div class="card shadow-lg p-4 rounded-4 border-0 bg-light"> {# Carte sans bordure et avec ombre #}
+                <div class="card shadow-lg p-4 rounded-4 border-0 bg-light">
                     <h1 class="text-center mb-4 text-primary">Ajouter un nouveau suivi médical</h1>  
 
                     {# Texte "* champs obligatoires" #}
@@ -30,34 +30,31 @@
                             </div>
                             <div class="col-md-8">
                                 {{ form_widget(form.type_suivi, {'attr': {'class': 'form-control form-control-lg'}}) }}
-                                {{ form_errors(form.type_suivi) }} {# Afficher les erreurs de validation #}
+                                {{ form_errors(form.type_suivi) }}
                             </div>
                         </div>
 
-                       {# Date de début #}
-<div class="row mb-3">
-    <div class="col-md-12">
-        {{ form_label(form.date_debut, 'Date de début *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-    </div>
-    <div class="col-md-12">
-        {{ form_widget(form.date_debut, {'attr': {'class': 'form-control form-control-lg'}}) }}
-        {{ form_errors(form.date_debut) }}
-    </div>
-</div>
+                        {# Date de début #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.date_debut, 'Date de début *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.date_debut, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                {{ form_errors(form.date_debut) }}
+                            </div>
+                        </div>
 
-{# Date de fin #}
-<div class="row mb-3">
-    <div class="col-md-12">
-        {{ form_label(form.date_fin, 'Date de fin *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-    </div>
-    <div class="col-md-12">
-        {{ form_widget(form.date_fin, {'attr': {'class': 'form-control form-control-lg'}}) }}
-        {{ form_errors(form.date_fin) }}
-    </div>
-</div>
-
-
-
+                        {# Date de fin #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.date_fin, 'Date de fin *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.date_fin, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                {{ form_errors(form.date_fin) }}
+                            </div>
+                        </div>
 
                         {# Fréquence et son champ sur la même ligne #}
                         <div class="row mb-3 align-items-center">
@@ -66,26 +63,26 @@
                             </div>
                             <div class="col-md-8">
                                 {{ form_widget(form.frequence, {'attr': {'class': 'form-control form-control-lg'}}) }}
-                                {{ form_errors(form.frequence) }} {# Afficher les erreurs de validation #}
+                                {{ form_errors(form.frequence) }}
                             </div>
                         </div>
 
- {# Description #}
-<div class="row mb-3">
-    <div class="col-md-12">
-        {{ form_label(form.description, 'Description *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-    </div>
-    <div class="col-md-12">
-        {{ form_widget(form.description, {
-            'attr': {
-                'rows': 4,
-                'class': 'form-control form-control-lg',
-                'style': 'resize: none;'
-            }
-        }) }}
-        {{ form_errors(form.description) }}
-    </div>
-</div>
+                        {# Description #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.description, 'Description *', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.description, {
+                                    'attr': {
+                                        'rows': 4,
+                                        'class': 'form-control form-control-lg',
+                                        'style': 'resize: none;'
+                                    }
+                                }) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+                        </div>
 
                         {# Patient et son champ sur la même ligne #}
                         <div class="row mb-3 align-items-center">
@@ -94,7 +91,7 @@
                             </div>
                             <div class="col-md-8">
                                 {{ form_widget(form.patient, {'attr': {'class': 'form-control form-control-lg'}}) }}
-                                {{ form_errors(form.patient) }} {# Afficher les erreurs de validation #}
+                                {{ form_errors(form.patient) }}
                             </div>
                         </div>
 
@@ -105,13 +102,28 @@
                             </div>
                             <div class="col-md-8">
                                 {{ form_widget(form.docteur, {'attr': {'class': 'form-control form-control-lg'}}) }}
-                                {{ form_errors(form.docteur) }} {# Afficher les erreurs de validation #}
+                                {{ form_errors(form.docteur) }}
                             </div>
                         </div>
 
-                        {# Bouton Enregistrer #}
+                        {# Rapport médical (PDF) #}
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                {{ form_label(form.rapportMedicalFile, 'Rapport médical (PDF)', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_widget(form.rapportMedicalFile, {
+                                    'attr': {
+                                        'class': 'form-control form-control-lg',
+                                    }
+                                }) }}
+                                {{ form_errors(form.rapportMedicalFile) }}
+                            </div>
+                        </div>
+
+                        {# Bouton Enregistrer (déplacé après le champ rapportMedicalFile) #}
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg w-100">Enregistrer</button>
+                            {{ form_widget(form.save) }}
                         </div>
                     {{ form_end(form) }}
                 </div>

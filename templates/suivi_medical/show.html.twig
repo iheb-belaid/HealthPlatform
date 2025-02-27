@@ -1,3 +1,4 @@
+{# templates/suivi_medical/show.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Détails du Suivi Médical{% endblock %}
@@ -35,6 +36,29 @@
                         <tr>
                             <th class="text-start bg-light">Description</th>
                             <td class="text-start">{{ suivi_medical.description }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-start bg-light">Rapport médical</th>
+                            <td class="text-start">
+                                {% if suivi_medical.rapportMedicalName %}
+                                    {% if suivi_medical.rapportMedicalName ends with '.pdf' %}
+                                        <a href="{{ asset('uploads/suivi_medical_files/' ~ suivi_medical.rapportMedicalName) }}" download>
+                                            Télécharger le rapport (PDF)
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ asset('uploads/suivi_medical_files/' ~ suivi_medical.rapportMedicalName) }}" 
+                                           data-lightbox="rapport-medical" 
+                                           data-title="Rapport médical">
+                                            <img src="{{ asset('uploads/suivi_medical_files/' ~ suivi_medical.rapportMedicalName) }}" 
+                                                 alt="Rapport médical" 
+                                                 class="img-fluid" 
+                                                 style="max-width: 300px; height: auto;">
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    Aucun fichier téléchargé.
+                                {% endif %}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

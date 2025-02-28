@@ -25,13 +25,7 @@ class DonationArgent
     #[Assert\Positive(message: "Le montant doit être un nombre positif.")]
     private ?float $montant = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "La méthode de paiement est obligatoire.")]
-    #[Assert\Choice(
-        choices: ["carte", "paypal", "virement"],
-        message: "Choisissez une méthode de paiement valide : Carte bancaire, PayPal ou Virement bancaire."
-    )]
-    private ?string $methodePaiment = null;
+
 
     #[ORM\Column(type: 'datetime')]
     private ?\DateTime $date = null;
@@ -68,16 +62,7 @@ class DonationArgent
         return $this;
     }
 
-    public function getMethodePaiment(): ?string
-    {
-        return $this->methodePaiment;
-    }
-
-    public function setMethodePaiment(string $methodePaiment): static
-    {
-        $this->methodePaiment = strtolower($methodePaiment); // Stocker en minuscule pour éviter les erreurs
-        return $this;
-    }
+   
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -89,4 +74,20 @@ class DonationArgent
         $this->date = $date;
         return $this;
     }
+    #[ORM\ManyToOne(targetEntity: Hospital::class, inversedBy: 'donationsArgent')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: "Vous devez sélectionner un hôpital.")]
+    private ?Hospital $hospital = null;
+    
+    public function getHospital(): ?Hospital
+    {
+        return $this->hospital;
+    }
+    
+    public function setHospital(?Hospital $hospital): static
+    {
+        $this->hospital = $hospital;
+        return $this;
+    }
+    
 }

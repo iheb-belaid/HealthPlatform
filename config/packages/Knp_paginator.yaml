@@ -1,0 +1,9 @@
+knp_paginator:
+    page_range: 8       # Nombre de pages affichées autour de la page actuelle
+    default_options:
+        page_name: page  # Nom du paramètre dans l'URL pour la pagination
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true   # Évite les doublons
+    template:
+        pagination: '@KnpPaginator/Pagination/sliding.html.twig'  # Template de pagination

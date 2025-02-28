@@ -4,62 +4,66 @@
 
 {% block body %}
 <section class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-<div class="container mt-4">
-    <div class="row justify-content-center align-items-center">
-        <!-- Citation à gauche -->
-        <div class="col-md-5 text-center">
-            <div class="p-4 bg-light rounded shadow-lg">
-                <h4 class="text-primary fw-bold">🙏 Faites un geste pour la vie !</h4>
-                <p class="fst-italic text-secondary mt-4">
-                    "Donner, c'est offrir une seconde chance. Chaque don fait à un hôpital est un pas vers la guérison de ceux qui en ont le plus besoin."
-                </p>
-            </div>
-        </div>
-         
-          
-        <!-- Formulaire à droite -->
-        <div class="col-md-5">
-            <div class="shadow-sm p-4 bg-light rounded">
-                <h3 class="mb-4 text-center">Ajouter une Donation</h3>
-                {{ form_start(form) }}
-
-                <div class="mb-3">
-                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.email, {'attr': {'class': 'form-control' ~ (form.email.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
-                    <div class="invalid-feedback">{{ form_errors(form.email) }}</div>
-                </div>
-
-                <div class="mb-3">
-                    {{ form_label(form.montant, 'Montant', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.montant, {'attr': {'class': 'form-control' ~ (form.montant.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
-                    <div class="invalid-feedback">{{ form_errors(form.montant) }}</div>
-                </div>
-
-                <div class="mb-3">
-                    {{ form_label(form.methodePaiment, 'Méthode de Paiement', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.methodePaiment, {'attr': {'class': 'form-select' ~ (form.methodePaiment.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
-                    <div class="invalid-feedback">{{ form_errors(form.methodePaiment) }}</div>
-                </div>
-
-               
-
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-success">Enregistrer</button>
-                    <a href="{{ path('app_homepage') }}" class="btn btn-secondary">Retour</a>
-                </div>
-
-                {{ form_end(form) }}
-
-                <!-- Notification de succès -->
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
-                        <strong>Succès :</strong> {{ message|raw }}
-                        </div>
-                        <a href="{{ path('app_homepage') }}" class="alert-link">valider </a>
+    <div class="container mt-4">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="shadow-sm p-4 bg-light rounded">
+                    <h3 class="mb-4 text-center">Ajouter une Donation</h3>
+                    {{ form_start(form) }}
+                    
+                    <div class="mb-3">
+                        {{ form_label(form.email, 'Email') }}
+                        {{ form_widget(form.email) }}
                     </div>
-                {% endfor %}
+
+                    <div class="mb-3">
+                        {{ form_label(form.montant, 'Montant') }}
+                        {{ form_widget(form.montant) }}
+                    </div>
+                     <div class="mb-3">
+                        {{ form_label(form.hospital, 'hospital') }}
+                        {{ form_widget(form.hospital) }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">Faire un don</button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('{{ stripe_public_key }}'); // Clé publique Stripe
+        var checkoutButton = document.getElementById('donation-form');
+
+        checkoutButton.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            fetch('{{ path('stripe_payment') }}', {
+                method: 'POST',
+                body: new FormData(checkoutButton),
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(sessionId) {
+                return stripe.redirectToCheckout({ sessionId: sessionId.id });
+            })
+            .then(function(result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 {% endblock %}

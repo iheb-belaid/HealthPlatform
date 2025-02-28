@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Docteurs en attente{% endblock %}
+
+{% block body %}
+    <h1>Docteurs en attente d'approbation</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% if docteurs|length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Spécialité</th>
+                    <th>Ville</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for docteur in docteurs %}
+                    <tr>
+                        <td>{{ docteur.lastName }}</td>
+                        <td>{{ docteur.firstName }}</td>
+                        <td>{{ docteur.specialty }}</td>
+                        <td>{{ docteur.city }}</td>
+                        <td>{{ docteur.email }}</td>
+                        <td>
+                            <form method="post" action="{{ path('admin_approve_doctor', {'id': docteur.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('approve' ~ docteur.id) }}">
+                                <button type="submit" class="btn btn-success">Approuver</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun docteur en attente d'approbation.</p>
+    {% endif %}
+{% endblock %}

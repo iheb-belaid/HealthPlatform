@@ -17,6 +17,7 @@ class Docteur extends User
         $this->setRoles(['ROLE_DOCTEUR']);
         $this->suivisMedicaux = new ArrayCollection();
         $this->consultations = new ArrayCollection();
+        $this->isApproved = false; // Par défaut, le docteur n'est pas approuvé
     }
 
     #[ORM\Column(length: 255)]
@@ -39,6 +40,9 @@ class Docteur extends User
 
     #[ORM\Column(length: 255)]
     private ?string $city = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isApproved = false; // Champ pour validation de l'admin
 
     /**
      * @var Collection<int, SuiviMedical>
@@ -130,6 +134,17 @@ class Docteur extends User
         return $this;
     }
 
+    public function isApproved(): bool
+    {
+        return $this->isApproved;
+    }
+
+    public function setIsApproved(bool $isApproved): static
+    {
+        $this->isApproved = $isApproved;
+        return $this;
+    }
+
     /**
      * @return Collection<int, SuiviMedical>
      */
@@ -178,7 +193,6 @@ class Docteur extends User
     public function removeConsultation(Consultation $consultation): static
     {
         if ($this->consultations->removeElement($consultation)) {
-            // set the owning side to null (unless already changed)
             if ($consultation->getDocteur() === $this) {
                 $consultation->setDocteur(null);
             }

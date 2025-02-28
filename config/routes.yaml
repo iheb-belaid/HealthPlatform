@@ -6,3 +6,11 @@ controllers:
 app_home:
     path: /
     controller: App\Controller\HomeController::index
+
+app_calendar:
+    path: /calendar
+    controller: App\Controller\CalendarController::index
+
+app_calendar_events:
+    path: /calendar/events
+    controller: App\Controller\CalendarController::getEvents

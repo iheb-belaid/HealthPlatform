@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier des Chirurgies{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.11.3/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.11.3/main.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Calendrier des Chirurgies</h1>
+        <div id="calendar"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@5.11.3/main.min.js"></script>
+    <script>
+       console.log("Vérification FullCalendar:", typeof FullCalendar);
+
+      document.addEventListener('DOMContentLoaded', function() {
+    console.log("Initialisation du calendrier...");
+    const calendarEl = document.getElementById('calendar');
+    console.log("Élément #calendar trouvé:", calendarEl);
+
+    if (calendarEl) {
+        const eventsUrl = "{{ path('app_calendar_events') }}";  
+        console.log("URL des événements :", eventsUrl);
+
+        fetch(eventsUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Données reçues :", data);  // Vérifie si les événements arrivent bien ici
+
+                // Vérifier si le format des événements est correct
+                const formattedEvents = data.map(event => ({
+                    title: event.title,
+                    start: event.start
+                }));
+
+                console.log("Événements formatés :", formattedEvents); // Debug
+
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    events: formattedEvents,  // Utilisation des données formatées
+                    editable: true,
+                    eventClick: function(info) {
+                        alert('Chirurgie: ' + info.event.title);
+                    }
+                });
+
+                calendar.render();
+            })
+            .catch(error => console.error("Erreur de récupération des événements :", error));
+    } else {
+        console.error("L'élément #calendar n'a pas été trouvé !");
+    }
+});
+
+
+
+    </script>
+{% endblock %}

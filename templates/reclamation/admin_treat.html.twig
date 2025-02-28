@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Traiter la Réclamation{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center" style="color: #007bff; font-weight: bold; margin-bottom: 20px;">
+            <i class="fas fa-tasks"></i> Traiter la Réclamation #{{ reclamation.id }}
+        </h1>
+
+        <div class="card shadow-lg p-4" style="background: rgba(255, 255, 255, 0.9); color: #333; border-radius: 10px; box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);">
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5><strong>Titre :</strong> {{ reclamation.titre }}</h5>
+                    <p><strong>Description :</strong> {{ reclamation.description }}</p>
+                    <p><strong>Patient :</strong> {{ reclamation.patient.nom ?? 'Inconnu' }}</p>
+                    <p><strong>Date de création :</strong> {{ reclamation.dateCreation|date('d/m/Y H:i') }}</p>
+                </div>
+
+                {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.status, null, {'label_attr': {'class': 'font-weight-bold'}}) }}
+                        {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.status) }}
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm" style="background-color: #007bff; border-color: #007bff;">
+                            <i class="fas fa-save"></i> Mettre à jour
+                        </button>
+                        <a href="{{ path('admin_reclamations_list') }}" class="btn btn-secondary btn-lg shadow-sm">
+                            <i class="fas fa-arrow-left"></i> Retour
+                        </a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            background: url('https://source.unsplash.com/1600x900/?hospital,medical') center/cover no-repeat;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        .btn-lg {
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-lg:hover {
+            transform: scale(1.05);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+{% endblock %}

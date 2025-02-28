@@ -35,6 +35,20 @@
                 </div>
                 <div class="col-12">
                     <a href="{{ path('app_statistiques') }}" class="btn btn-light btn-lg shadow-sm w-100"><i class="fas fa-chart-line"></i> Statistiques Médicales </a>
+
+
+                </div>
+
+                <div class="col-12 position-relative">
+                    <a href="{{ path('admin_reclamations_list') }}" class="btn btn-light btn-lg shadow-sm w-100">
+                        <i class="fas fa-exclamation-triangle"></i> Traiter les Réclamations
+                        {% if pending_reclamations_count > 0 %}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ pending_reclamations_count }}
+                                <span class="visually-hidden">réclamations en attente</span>
+                            </span>
+                        {% endif %}
+                    </a>
                 </div>
 
             </div>

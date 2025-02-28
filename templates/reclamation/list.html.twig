@@ -1,0 +1,159 @@
+{# templates/reclamation/list.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Réclamations{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        h1 {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .table thead th {
+            background-color: #007bff;
+            color: #ffffff;
+            border-color: #007bff;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .table tbody td {
+            vertical-align: middle;
+        }
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .hero-section {
+            position: relative;
+            background: url('https://www.autoroutes.sanef.com/sites/default/files/2022-11/contacts2.png') no-repeat center center;
+            background-size: cover;
+            height: 40vh;
+        }
+        .hero-section .container {
+            background: none;
+            box-shadow: none;
+            margin-top: 0;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 10px 10px 0 0;
+        }
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5em 0.75em;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container h-100 d-flex align-items-center">
+            <div class="text-white text-center">
+                <h1 class="display-4"></h1>
+                <p class="lead"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reclamations List Section -->
+    <div class="container py-5">
+        <h1 class="text-center">
+            <i class="fas fa-list"></i> Liste des Réclamations
+        </h1>
+
+        {% if reclamations is empty %}
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle"></i> Aucune réclamation trouvée.
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-bordered mt-4">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Date de création</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reclamation in reclamations %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>{{ reclamation.titre }}</td>
+                                <td>{{ reclamation.description }}</td>
+                                <td>{{ reclamation.dateCreation|date('d/m/Y H:i') }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if reclamation.status == 'Non traité' %}bg-warning
+                                        {% elseif reclamation.status == 'Confirmée' %}bg-success
+                                        {% elseif reclamation.status == 'Refusée' %}bg-danger
+                                        {% endif %}">
+                                        {{ reclamation.status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{{ path('patient_reclamation_show', {'id': reclamation.id}) }}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('admin_reclamation_treat', {'id': reclamation.id}) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Modifier
+                                    </a>
+                                    <form action="{{ path('patient_reclamation_delete', {'id': reclamation.id}) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réclamation ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Supprimer
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

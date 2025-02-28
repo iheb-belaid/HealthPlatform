@@ -18,7 +18,7 @@ class Patient extends User
         $this->chirurgies = new ArrayCollection();
         $this->suivisMedicaux = new ArrayCollection();
         $this->consultations = new ArrayCollection();
-        //$this->reclamations = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     #[ORM\Column(length: 255)]
@@ -57,8 +57,9 @@ class Patient extends User
     /**
      * @var Collection<int, Reclamation>
      */
-    ///#[ORM\OneToMany(targetEntity: Reclamation::class, mappedBy: 'patient', cascade: ['remove'])]
-   // private Collection $reclamations;
+    #[ORM\OneToMany(targetEntity: Reclamation::class, mappedBy: 'patient', cascade: ['remove'])]
+    private Collection $reclamations;
+    
 
     // Getters et Setters
     public function getPrename(): ?string
@@ -203,7 +204,7 @@ class Patient extends User
     /**
  * @return Collection<int, Reclamation>
  */
-/*
+
 public function getReclamations(): Collection
 {
     return $this->reclamations;
@@ -226,5 +227,5 @@ public function removeReclamation(Reclamation $reclamation): static
         }
     }
     return $this;
-}*/
+}
 }

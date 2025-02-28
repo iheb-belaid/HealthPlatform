@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Réclamation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        h1 {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 10px 10px 0 0;
+        }
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5em 0.75em;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center">
+            <i class="fas fa-info-circle"></i> Détails de la Réclamation
+        </h1>
+
+        <!-- Reclamation Details Section -->
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h2 class="card-title text-center mb-0">
+                    Réclamation #{{ reclamation.id }}
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>Titre :</strong> {{ reclamation.titre }}
+                </div>
+                <div class="mb-3">
+                    <strong>Description :</strong> {{ reclamation.description }}
+                </div>
+                <div class="mb-3">
+                    <strong>Date de création :</strong> {{ reclamation.dateCreation|date('d/m/Y H:i') }}
+                </div>
+                <div class="mb-3">
+                    <strong>Statut :</strong>
+                    <span class="badge 
+                        {% if reclamation.status == 'Non traité' %}bg-warning
+                        {% elseif reclamation.status == 'Confirmée' %}bg-success
+                        {% elseif reclamation.status == 'Refusée' %}bg-danger
+                        {% endif %}">
+                        {{ reclamation.status }}
+                    </span>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{{ path('patient_reclamations_list') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

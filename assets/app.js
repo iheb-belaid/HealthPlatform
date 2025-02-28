@@ -1,10 +1,24 @@
-import './bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
-import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    if (calendarEl) { // Vérifiez que l'élément existe
+        const calendar = new Calendar(calendarEl, {
+            plugins: [dayGridPlugin, interactionPlugin],
+            initialView: 'dayGridMonth',
+            events: '/calendar/events', // URL pour récupérer les événements
+            editable: true,
+            eventClick: function(info) {
+                alert('Chirurgie: ' + info.event.title);
+            }
+        });
+        calendar.render();
+    } else {
+        console.error("L'élément #calendar n'a pas été trouvé dans le DOM.");
+    }
+});

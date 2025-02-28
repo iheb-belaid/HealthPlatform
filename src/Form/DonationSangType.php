@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Hospital;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Email;
 
 class DonationSangType extends AbstractType
 {
@@ -35,7 +37,16 @@ class DonationSangType extends AbstractType
            // 'attr' => ['class' => 'form-control', 'readonly' => true] // Empêche la modification
       //  ])
         
-            ->add('EmailUser')
+           // ->add('EmailUser')
+            ->add('EmailUser', EmailType::class, [
+                'label' => 'Votre e-mail',
+                'required' => true,
+                'constraints' => [
+                    new Email([
+                        'message' => 'Veuillez entrer une adresse e-mail valide.',
+                    ]),
+                ],
+            ])
             ->add('Cin')
             ->add('hospital', EntityType::class, [ 
                 'label' => 'Hôpital',

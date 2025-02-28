@@ -10,6 +10,9 @@
         <a href="{{ path('app_hospital_index') }}" class="btn btn-success">
             <i class="fas fa-plus"></i>Liste des Hôpital
         </a>
+        <a href="{{ path('admin_dashboard') }}"class="btn btn-success">
+        <i class="fas fa-plus"></i>back to Liste
+        </a>
     </div>
 
     <div class="table-responsive">
@@ -43,6 +46,13 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                         </div>
+                        <form method="post" action="{{ path('app_donation_sang_delete', {'id': donation_sang.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette donation ?');" style="display:inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ donation_sang.id) }}">
+    <button type="submit" class="btn btn-sm btn-danger">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+</form>
+
                     </td>
                 </tr>
             {% else %}
@@ -52,8 +62,19 @@
             {% endfor %}
             </tbody>
         </table>
+         {# Pagination des résultats #}
+    <div class="pagination">
+        {{ knp_pagination_render(donation_sangs) }}
+    </div>
     </div>
 </div>
+<head>
+   
+</head>
+
+    <!-- Autres balises <head> -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+
 
 <!-- Ajouter ceci dans votre base.html.twig si pas déjà inclus -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">

@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\DonationArgent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\QueryBuilder;
 /**
  * @extends ServiceEntityRepository<DonationArgent>
  */
@@ -15,7 +15,12 @@ class DonationArgentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DonationArgent::class);
     }
-
+    public function findAllQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.id', 'DESC'); // Trie les donations par ID décroissant (ou utilisez un autre champ)
+    }
+}
     //    /**
     //     * @return DonationArgent[] Returns an array of DonationArgent objects
     //     */
@@ -40,4 +45,4 @@ class DonationArgentRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-}
+

@@ -10,7 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\DonationArgent;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use App\Entity\Hospital;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DonationArgentType extends AbstractType
 {
@@ -27,21 +28,19 @@ class DonationArgentType extends AbstractType
                 'required' => true,
                 'attr' => ['min' => 5, 'step' => 5]
             ])
-            ->add('methodePaiment', ChoiceType::class, [
-                'label' => 'Méthode de paiement',
-                'choices' => [
-                    'Carte bancaire' => 'carte',
-                    'PayPal' => 'paypal'
-                ],
-                'expanded' => true,
-                'multiple' => false
-            ]);
-           // ->add('date', DateType::class, [  // Ajout du champ "date"
-                //'widget' => 'single_text',
-                //'label' => 'Date',
-                //'required' => true,
-               // 'attr' => ['class' => 'form-control']
-           // ]);
+            
+            ->add('hospital', EntityType::class, [
+                'label' => 'Hôpital',
+                'class' => Hospital::class,  // L'entité associée
+                'choice_label' => 'name',    // Afficher le nom de l’hôpital
+                'placeholder' => 'Sélectionner un hôpital', // Option vide par défaut
+                'required' => true,          // Le champ est requis
+               
+                  
+            ])
+                          
+            ->getForm();;
+         
              //->add('submit', SubmitType::class, [
               //  'label' => 'Faire un don',
               //  'attr' => ['class' => 'btn btn-primary w-10']

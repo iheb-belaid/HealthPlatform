@@ -26,10 +26,16 @@ class Hospital
      */
     #[ORM\OneToMany(targetEntity: DonationSang::class, mappedBy: 'hospital')]
     private Collection $donation;
+ /**
+ * @var Collection<int, DonationArgent>
+ */
+#[ORM\OneToMany(targetEntity: DonationArgent::class, mappedBy: 'hospital', cascade: ['persist', 'remove'])]
+private Collection $donationsArgent;
 
     public function __construct()
     {
         $this->donation = new ArrayCollection();
+        $this->donationsArgent = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,4 +96,21 @@ class Hospital
 
         return $this;
     }
+      /**
+ * @return Collection<int, DonationArgent>
+ */
+public function getDonationsArgent(): Collection
+{
+    return $this->donationsArgent;
+}
+
+public function addDonationsArgent(DonationArgent $donationsArgent): static
+{
+    if (!$this->donationsArgent->contains($donationsArgent)) {
+        $this->donationsArgent->add($donationsArgent);
+        $donationsArgent->setHospital($this);
+    }
+
+    return $this;
+}
 }

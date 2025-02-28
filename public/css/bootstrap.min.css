@@ -8650,3 +8650,50 @@ a.text-dark:hover {
 
 
 /*# sourceMappingURL=bootstrap.min.css.map */
+/* Conteneur principal de la pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+/* Elément de la page (boutons de navigation) */
+.pagination .page-item {
+    margin: 0 8px;
+}
+
+/* Lien de chaque page */
+.pagination .page-link {
+    padding: px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Page active */
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Page désactivée */
+.pagination .page-item.disabled .page-link {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Effet de survol */
+.pagination .page-item .page-link:hover {
+    background-color: #f0f0f0;
+    color: #0056b3;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

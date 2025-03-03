@@ -40,4 +40,14 @@ class ProduitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findByNom(string $nom): array
+{
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.nom LIKE :nom')
+        ->setParameter('nom', '%' . $nom . '%')
+        ->orderBy('p.datecreation', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
 }

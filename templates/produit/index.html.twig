@@ -4,7 +4,26 @@
 
 {% block body %}
     <div class="container mt-5">
+    <div class="text-center">
+    <img src="{{ asset('img/sante.jpg') }}" alt="Nos Produits" 
+         class="img-fluid rounded shadow mb-4" style="max-width: 100%; height: auto;">
+</div>
+
         <h1 class="text-center mb-4 display-4 font-weight-bold text-primary">Nos produits</h1>
+        {# 🔍 Search Bar #}
+<form method="GET" action="{{ path('app_produit_index') }}" class="mb-4 text-center">
+    <div class="input-group" style="max-width: 500px; margin: auto;">
+        <input type="text" name="search" class="form-control" placeholder="Rechercher un produit..." 
+               value="{{ searchTerm }}" aria-label="Rechercher un produit">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+        {% if searchTerm %}
+            <a href="{{ path('app_produit_index') }}" class="btn btn-secondary">Réinitialiser</a>
+        {% endif %}
+    </div>
+</form>
+
 
         {# Bouton pour créer un nouveau produit #}
         <div class="text-center mb-4">
@@ -74,6 +93,7 @@
             </table>
         </div>
     </div>
+   
 
     {# Animation CSS avec Animate.css #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">

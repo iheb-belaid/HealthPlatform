@@ -3,67 +3,42 @@
 {% block title %}Nouvelle Donation{% endblock %}
 
 {% block body %}
-<section class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="container mt-4">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-6">
-                <div class="shadow-sm p-4 bg-light rounded">
-                    <h3 class="mb-4 text-center">Ajouter une Donation</h3>
-                    {{ form_start(form) }}
-                    
-                    <div class="mb-3">
-                        {{ form_label(form.email, 'Email') }}
-                        {{ form_widget(form.email) }}
-                    </div>
+<section class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-body p-4">
+                        <h3 class="mb-4 text-center text-primary">Ajouter une Donation</h3>
 
-                    <div class="mb-3">
-                        {{ form_label(form.montant, 'Montant') }}
-                        {{ form_widget(form.montant) }}
-                    </div>
-                     <div class="mb-3">
-                        {{ form_label(form.hospital, 'hospital') }}
-                        {{ form_widget(form.hospital) }}
-                    </div>
+                        {{ form_start(form, { 'attr': {'id': 'donation-form'} }) }}
 
-                    <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-success">Faire un don</button>
-                    </div>
+                        <div class="mb-3">
+                            {{ form_label(form.email, 'Email', { 'label_attr': {'class': 'form-label fw-bold'} }) }}
+                            {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                        </div>
 
-                    {{ form_end(form) }}
+                        <div class="mb-3">
+                            {{ form_label(form.montant, 'Montant', { 'label_attr': {'class': 'form-label fw-bold'} }) }}
+                            {{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="mb-3 row">
+                         <label class="col-sm-3 col-form-label fw-bold">
+                           {{ form_label(form.hospital, 'Hôpital') }}
+                           </label>
+                          <div class="col-sm-9">
+                           {{ form_widget(form.hospital, { 'attr': {'class': 'form-control'} }) }}
+                         </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success w-100 py-2">Faire un don</button>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        var stripe = Stripe('{{ stripe_public_key }}'); // Clé publique Stripe
-        var checkoutButton = document.getElementById('donation-form');
-
-        checkoutButton.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            fetch('{{ path('stripe_payment') }}', {
-                method: 'POST',
-                body: new FormData(checkoutButton),
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(sessionId) {
-                return stripe.redirectToCheckout({ sessionId: sessionId.id });
-            })
-            .then(function(result) {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            })
-            .catch(function(error) {
-                console.error('Error:', error);
-            });
-        });
-    </script>
 {% endblock %}

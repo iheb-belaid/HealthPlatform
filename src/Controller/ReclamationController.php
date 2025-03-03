@@ -39,7 +39,7 @@ class ReclamationController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre réclamation a été soumise avec succès.');
-            return $this->redirectToRoute('patient_reclamations_list'); // Redirection corrigée
+            return $this->redirectToRoute('patient_reclamation_new'); 
         }
 
         return $this->render('reclamation/new.html.twig', [

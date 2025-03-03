@@ -73,16 +73,21 @@ final class DonationSangController extends AbstractController
             return $this->redirectToRoute('app_donation_sang_new');
         }
 
-        // Envoyer un e-mail de confirmation à l'utilisateur
-        $emailMessage = (new Email())
-            ->from('rawenebouafif2@gmail.com')
-            ->to($EmailUser)
-            ->subject('Confirmation de votre don de sang')
-            ->html("
-                <p>Votre don de sang a bien été enregistré.</p>
-                <p>Nous vous contacterons bientôt pour confirmer votre rendez-vous.</p>
-                <p>Si vous avez des questions, contactez-nous à contact@votre-site.com.</p>
-            ");
+      // Envoyer un e-mail de confirmation à l'utilisateur
+$emailMessage = (new Email())
+->from('rawenebouafif2@gmail.com')
+->to($EmailUser)
+->subject('📢 Confirmation de votre don de sang')
+->html("
+    <h2 style='color: #d32f2f;'>Merci pour votre engagement ! ❤️</h2>
+    <p>Bonjour,</p>
+    <p>Nous avons bien enregistré votre demande de don de sang.</p>
+    <p>Nous vous contacterons prochainement pour vous confirmer la date et l'heure de votre rendez-vous.</p>
+    <p>Si vous avez des questions, n'hésitez pas à nous contacter à <a href='mailto:contact@votre-site.com'>contact@votre-site.com</a>.</p>
+    <br>
+   
+");
+
 
         // Gérer les erreurs d'envoi d'e-mail
         try {

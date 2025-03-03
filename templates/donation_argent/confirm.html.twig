@@ -3,14 +3,28 @@
 {% block title %}Confirmation du Don{% endblock %}
 
 {% block body %}
-    <h1>Merci pour votre don !</h1>
-    <p>Montant : {{ donation.montant }} €</p> {# Utilisation correcte #}
+<section class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-body text-center p-4">
+                        <h3 class="text-primary mb-3">Confirmer votre don</h3>
+                        <p class="fs-5">Montant : <strong>{{ donation.montant }} €</strong></p>
 
-    <button id="checkout-button" class="btn btn-primary">Payer avec Stripe</button>
+                        <button id="checkout-button" class="btn btn-success w-100 py-2">Accéder au paiement</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        var stripe = Stripe("{{ stripe_public_key }}");
+<!-- Script Stripe -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var stripe = Stripe("{{ stripe_public_key|e('js') }}");
         var checkoutButton = document.getElementById("checkout-button");
 
         checkoutButton.addEventListener("click", function () {
@@ -19,16 +33,10 @@
                 headers: { "Content-Type": "application/json" },
             })
             .then(response => response.json())
-            .then(session => {
-                return stripe.redirectToCheckout({ sessionId: session.id });
-            })
-            .then(result => {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            })
+            .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
             .catch(error => console.error("Erreur:", error));
         });
-    </script>
+    });
+</script>
 {% endblock %}
 

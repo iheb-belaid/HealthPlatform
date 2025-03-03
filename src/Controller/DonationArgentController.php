@@ -42,46 +42,81 @@ final class DonationArgentController extends AbstractController
         $donationArgent = new DonationArgent();
         $form = $this->createForm(DonationArgentType::class, $donationArgent);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarde en base de données
             $this->entityManager->persist($donationArgent);
             $this->entityManager->flush();
-    
-            // Message flash pour l'utilisateur
+
             $this->addFlash('success', 'Veuillez confirmer votre paiement.');
-    
-            // Redirection vers la page de confirmation
+
             return $this->redirectToRoute('donation_confirm', [
                 'donationId' => $donationArgent->getId()
             ]);
         }
-    
+
         return $this->render('donation_argent/new.html.twig', [
             'form' => $form->createView(),
+            'stripe_public_key' => $_ENV['STRIPE_PUBLIC_KEY'] ?? getenv('STRIPE_PUBLIC_KEY')
         ]);
     }
-    
+
     #[Route('/confirm/{donationId}', name: 'donation_confirm', methods: ['GET'])]
-    public function confirm(int $donationId, EntityManagerInterface $entityManager): Response
+    public function confirm(int $donationId): Response
     {
-        // Récupérer la donation depuis la base de données
-        $donation = $entityManager->getRepository(DonationArgent::class)->find($donationId);
-    
+        $donation = $this->entityManager->getRepository(DonationArgent::class)->find($donationId);
+
         if (!$donation) {
             throw $this->createNotFoundException('Donation introuvable.');
         }
-    
-        // Affichage du template avec toutes les infos nécessaires
+
         return $this->render('donation_argent/confirm.html.twig', [
-            'donation' => $donation,  // On passe l'objet entier
+            'donation' => $donation,
             'stripe_public_key' => $_ENV['STRIPE_PUBLIC_KEY']
         ]);
     }
+
+    #[Route('/stripe/payment/{donationId}', name: 'stripe_payment', methods: ['GET'])]
+    public function stripePayment(int $donationId): JsonResponse
+    {
+        $donation = $this->entityManager->getRepository(DonationArgent::class)->find($donationId);
+
+        if (!$donation) {
+            return new JsonResponse(['error' => 'Donation not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+
+        try {
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => ['name' => 'Donation'],
+                        'unit_amount' => $donation->getMontant() * 100,
+                    ],
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'success_url' => $this->generateUrl('app_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'cancel_url' => $this->generateUrl('donation_confirm', ['donationId' => $donationId], UrlGeneratorInterface::ABSOLUTE_URL),
+            ]);
+
+            return new JsonResponse(['id' => $session->id]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+ 
     
-    
-    
-    
+    #[Route('/{id}', name: 'app_donation_sang_show', methods: ['GET'])]
+    public function show(DonationArgent $donationArgent): Response
+    {
+        return $this->render('donation_argent/show.html.twig', [
+            'donation_argent' => $donationArgent,
+        ]);
+    } 
+
     #[Route('/{id}/edit', name: 'app_donation_argent_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, DonationArgent $donationArgent, EntityManagerInterface $entityManager): Response
     {

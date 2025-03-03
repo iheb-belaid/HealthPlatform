@@ -10,17 +10,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
-#[Route('/patient')]
-final class PatientController extends AbstractController
-{
-    #[Route(name: 'app_patient_index', methods: ['GET'])]
-    public function index(PatientRepository $patientRepository): Response
+
+
+    #[Route('/patient')]
+    final class PatientController extends AbstractController
     {
-        return $this->render('patient/index.html.twig', [
-            'patients' => $patientRepository->findAll(),
-        ]);
-    }
+        #[Route(name: 'app_patient_index', methods: ['GET'])]
+        public function index(PatientRepository $patientRepository, Request $request, PaginatorInterface $paginator): Response
+        {
+            // Utilisation d'une requête paginée
+            $query = $patientRepository->createQueryBuilder('p')->getQuery();
+    
+            $patients = $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1), // Page actuelle (défaut: 1)
+                5 // Nombre d'éléments par page
+            );
+    
+            return $this->render('patient/index.html.twig', [
+                'patients' => $patients,
+            ]);
+        }
+
 
     #[Route('/new', name: 'app_patient_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

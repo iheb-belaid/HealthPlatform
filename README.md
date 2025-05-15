@@ -86,7 +86,7 @@ Puis accède au site via : [http://localhost:8000](http://localhost:8000)
 - **Envoi d'emails** : Mailer Symfony
 - **Hébergement** *(optionnel)* : GitHub Education
 
-> Mots-clés : 
+## Mots-clés : 
 #e-santé #symfony #php  #gestion_médicale #Esprit #School_of_Engineering #stripe #doctrine  #rendez_vous_médicaux
 
 ---
